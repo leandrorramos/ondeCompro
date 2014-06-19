@@ -1,0 +1,23 @@
+#ant specific
+dist/
+build/
+build.xml
+ 
+#netbeans specific
+core
+nbproject/*
+src/conf/MANIFEST.MF
+src/java/hibernate.cfg.xml
+web/META-INF/*
+ 
+#java specific
+*.class
+ 
+#general swap/backup files
+*.so
+*.log
+*.out
+*~
+*.swp
+*.DS_Store
+*.lock
