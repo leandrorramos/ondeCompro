@@ -6,6 +6,8 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -16,6 +18,7 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codigo_usuario")
     private Integer codigoUsuario;
     private short tipo;
@@ -24,6 +27,7 @@ public class Usuario implements Serializable {
     private String senha;
     @Temporal(TemporalType.TIMESTAMP)
     private Date data;
+    private String ativo;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioscodigo")
     private Collection<Item> itemCollection;
@@ -90,6 +94,14 @@ public class Usuario implements Serializable {
 
     public void setData(Date data) {
         this.data = data;
+    }
+
+    public String getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(String ativo) {
+        this.ativo = ativo;
     }
 
     @XmlTransient

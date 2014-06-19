@@ -50,13 +50,34 @@
                         <h:outputText value="Usuário:" />
                         <p:inputText value="#{usuarioC.usuario.nome}" />
                         <h:outputText value="Senha:" />
-                        <p:inputText value="#{usuarioC.usuario.senha}" />
+                        <p:password value="#{usuarioC.usuario.senha}" feedback="true"
+                                    promptLabel="Digite sua senha" weakLabel="fraco"
+                                    goodLabel="Bom" strongLabel="Forte" />
                         <h:outputText value="E-mail:" />
-                        <p:inputText value="#{usuarioC.usuario.email}" />
+                        <p:inputText id="email" required="true" label="email" size="40"
+                                     requiredMessage="Por favor digite seu e-mail"
+                                     validatorMessage="Digite um e-mail correto"
+                                     value="#{usuarioC.usuario.email}">
+
+                        <f:validateRegex
+                                pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+
+                        </p:inputText>
+                        <p:watermark for="email" value="Endereço de e-mail *" />
+                        <p:message for="email" />
                         <h:outputText value="Tipo:" />
-                        <p:inputText value="#{usuarioC.usuario.tipo}" />
-                        <h:outputText value="Tipo:" />
-                        <p:inputText value="#{usuarioC.usuario.data}" />
+                        <p:selectOneMenu value="#{usuarioC.usuario.tipo}">
+                            <f:selectItem itemLabel="Usuário" itemValue="1" />
+                            <f:selectItem itemLabel="Moderador" itemValue="2" />
+                            <f:selectItem itemLabel="Empresa" itemValue="3" />
+                        </p:selectOneMenu>
+                        <h:outputText value="Data" />
+                        <p:calendar id="button" value="#{usuarioC.usuario.data}" locale="br" pattern="dd-mm-yyyy" showOn="button" />
+                        <h:outputText value="Ativo" />
+                        <p:selectOneRadio value="#{usuarioC.usuario.ativo}">
+                            <f:selectItem itemLabel="Sim" itemValue="S" />
+                            <f:selectItem itemLabel="Não" itemValue="N" />
+                        </p:selectOneRadio>
                     </p:panelGrid>
                     <p:commandButton value="Cadastrar"
                                      actionListener="#{usuarioC.salvarUsuario}"
@@ -72,13 +93,34 @@
                         <h:outputText value="Usuário:" />
                         <p:inputText value="#{usuarioC.usuario.nome}" />
                         <h:outputText value="Senha:" />
-                        <p:inputText value="#{usuarioC.usuario.senha}" />
+                        <p:password id="turkishFeedback" value="#{usuarioC.usuario.senha}" feedback="true"
+                                    promptLabel="Digite sua senha" weakLabel="fraco"
+                                    goodLabel="Bom" strongLabel="Forte" />
                         <h:outputText value="E-mail:" />
-                        <p:inputText value="#{usuarioC.usuario.email}" />
+                        <p:inputText id="email" required="true" label="email" size="40"
+                                     requiredMessage="Por favor digite seu e-mail"
+                                     validatorMessage="Digite um e-mail correto"
+                                     value="#{usuarioC.usuario.email}">
+
+                        <f:validateRegex
+                                pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+
+                        </p:inputText>
+                        <p:watermark for="email" value="Endereço de e-mail *" />
+                        <p:message for="email" />
                         <h:outputText value="Tipo:" />
-                        <p:inputText value="#{usuarioC.usuario.tipo}" />
-                        <h:outputText value="Tipo:" />
-                        <p:inputText value="#{usuarioC.usuario.data}" />
+                        <p:selectOneMenu id="console" value="#{usuarioC.usuario.tipo}">
+                            <f:selectItem itemLabel="Usuário" itemValue="1" />
+                            <f:selectItem itemLabel="Moderador" itemValue="2" />
+                            <f:selectItem itemLabel="Empresa" itemValue="3" />
+                        </p:selectOneMenu>
+                        <h:outputText value="Data" />
+                        <p:calendar id="button" value="#{usuarioC.usuario.data}" locale="br" pattern="dd-mm-yyyy" showOn="button" />
+                        <h:outputText value="Ativo" />
+                        <p:selectOneRadio value="#{usuarioC.usuario.ativo}">
+                            <f:selectItem itemLabel="Sim" itemValue="S" />
+                            <f:selectItem itemLabel="Não" itemValue="N" />
+                        </p:selectOneRadio>
                     </p:panelGrid>
                     <p:commandButton value="Alterar"
                                      actionListener="#{usuarioC.atualizarUsuario}"
