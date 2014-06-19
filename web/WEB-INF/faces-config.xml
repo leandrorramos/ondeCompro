@@ -26,12 +26,12 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
-            <from-outcome>produtos</from-outcome>
+            <from-outcome>produto</from-outcome>
             <to-view-id>/produto/index.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
-            <from-outcome>itens</from-outcome>
+            <from-outcome>item</from-outcome>
             <to-view-id>/item/index.xhtml</to-view-id>
             <redirect/>
         </navigation-case>

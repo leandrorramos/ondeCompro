@@ -19,7 +19,7 @@ public class Item implements Serializable {
     private Integer codigoItem;
     private int quantidade;
     
-    @JoinColumn(name = "Usuario_codigo", referencedColumnName = "codigo_usuario")
+    @JoinColumn(name = "Usuarios_codigo", referencedColumnName = "codigo_usuario")
     @ManyToOne
     private Usuario usuarioscodigo;
     
