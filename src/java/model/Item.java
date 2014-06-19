@@ -1,8 +1,11 @@
 package model;
 
 import java.io.Serializable;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -11,28 +14,29 @@ import javax.persistence.ManyToOne;
 public class Item implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codigo_item")
     private Integer codigoItem;
     private int quantidade;
     
-    @JoinColumn(name = "Usuarios_codigo", referencedColumnName = "codigo_usuario")
-    @ManyToOne(optional = false)
+    @JoinColumn(name = "Usuario_codigo", referencedColumnName = "codigo_usuario")
+    @ManyToOne
     private Usuario usuarioscodigo;
     
     @JoinColumn(name = "Produto_codigo", referencedColumnName = "codigo_produto")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Produto produtocodigo;
     
     @JoinColumn(name = "Unidade_codigo", referencedColumnName = "codigo_unidade")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Unidade unidadecodigo;
     
     @JoinColumn(name = "Categoria_codigo", referencedColumnName = "codigo_categoria")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Categoria categoriacodigo;
     
     @JoinColumn(name = "Marca_codigo", referencedColumnName = "codigo_marca")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Marca marcacodigo;
 
     public Item() {
