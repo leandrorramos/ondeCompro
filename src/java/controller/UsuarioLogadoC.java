@@ -3,26 +3,34 @@ package controller;
 //import com.estagio.business.UsuarioBO;  
 //import dao.UsuarioDAO;
 import DAO.UsuarioDAO;
-import model.Usuario;  
+import static com.fasterxml.classmate.AnnotationOverrides.builder;  
 import java.io.IOException;  
 import java.io.Serializable;
 import javax.annotation.PostConstruct;  
 import javax.faces.application.FacesMessage;  
 import javax.faces.bean.ManagedBean;  
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;  
 import javax.faces.context.FacesContext;  
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import model.Usuario;
   
 /** 
 * @author Cristian Urbainski 
 * @since 01/05/2012 
 */  
 @ManagedBean(name="usuarioLogadoC")  
-@SessionScoped
+@RequestScoped
 public class UsuarioLogadoC implements Serializable{  
       
     private Usuario usuario;  
     private Boolean usuarioLogado;        
     private static UsuarioLogadoC instance;  
+    private EntityManager entityManager;
   
     @PostConstruct  
     public void inicializa()  
@@ -39,9 +47,7 @@ public class UsuarioLogadoC implements Serializable{
     public void setUsuario(Usuario usuario) {  
         this.usuario = usuario;  
     }
-    
-    
-    
+        
     public static UsuarioLogadoC getInstance() throws Exception  
     {  
         if(instance == null)  
@@ -58,7 +64,36 @@ public class UsuarioLogadoC implements Serializable{
         FacesContext.getCurrentInstance().getExternalContext().redirect("../login.xhtml");  
         this.inicializa();
     }  
-      
+    
+    public String fazerLogin() throws IOException {
+        // obtem seu entityManager
+        
+    CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+    CriteriaQuery<Usuario> query = builder.createQuery(Usuario.class);
+    Root<Usuario> u = query.from(Usuario.class);
+    query.select(u);
+    query.where(
+            builder.equal(u.get("email"), this.usuario.getEmail()), 
+            builder.equal(u.get("senha"), this.usuario.getSenha())
+    );
+
+    TypedQuery<Usuario> typedQuery = entityManager.createQuery(query);
+    Usuario user = typedQuery.getSingleResult();
+
+    if(user != null) {
+        //logarUsuario
+        usuarioLogado = Boolean.TRUE;  
+        usuario = user;  
+
+        //redirecionar usuario logado
+        FacesContext.getCurrentInstance().getExternalContext().redirect("template/newTemplate.xhtml");    
+        return "";
+    } 
+        // não logado
+        return null;
+    }
+    
+    /*
     public void fazerLogin()  
     {  
         try {
@@ -84,7 +119,7 @@ public class UsuarioLogadoC implements Serializable{
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Erro ao efetuar login, tente novamente."));  
         }  
     }  
-    
+    */
     public String getNomeUsuario() throws IOException  
     {  
         if(usuarioLogado)  
