@@ -2,6 +2,8 @@ package controller;
 
 import DAO.LocalidadeDAO;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import model.Localidade;
@@ -37,6 +39,11 @@ public class LocalidadeC{
     }
     
     public void salvarLocalidade(){
+        try {
+            this.localidade.setUsuario(UsuarioLogadoC.getInstance().getUsuario());
+        } catch (Exception ex) {
+            Logger.getLogger(LocalidadeC.class.getName()).log(Level.SEVERE, null, ex);
+        }
         new LocalidadeDAO().save(localidade);
         localidadeLista = new LocalidadeDAO().findAll();
         localidade = new Localidade();

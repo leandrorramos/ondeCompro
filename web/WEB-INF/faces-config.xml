@@ -26,6 +26,16 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
+            <from-outcome>produtos</from-outcome>
+            <to-view-id>/produto/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>itens</from-outcome>
+            <to-view-id>/item/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>usuario</from-outcome>
             <to-view-id>/usuario/index.xhtml</to-view-id>
             <redirect />
