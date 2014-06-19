@@ -38,11 +38,11 @@ public class ProdutoC {
         this.produto = produto;
     }
 
-    public List<Produto> getprodutoLista() {
+    public List<Produto> getProdutoLista() {
         return produtoLista;
     }
 
-    public void setprodutoLista(List<Produto> produtoLista) {
+    public void setProdutoLista(List<Produto> produtoLista) {
         this.produtoLista = produtoLista;
     }
     
