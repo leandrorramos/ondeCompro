@@ -17,7 +17,7 @@ public class Item implements Serializable {
     
     @JoinColumn(name = "Usuarios_codigo", referencedColumnName = "codigo_usuario")
     @ManyToOne(optional = false)
-    private Usuarios usuarioscodigo;
+    private Usuario usuarioscodigo;
     
     @JoinColumn(name = "Produto_codigo", referencedColumnName = "codigo_produto")
     @ManyToOne(optional = false)
@@ -63,11 +63,11 @@ public class Item implements Serializable {
         this.quantidade = quantidade;
     }
 
-    public Usuarios getUsuarioscodigo() {
+    public Usuario getUsuarioscodigo() {
         return usuarioscodigo;
     }
 
-    public void setUsuarioscodigo(Usuarios usuarioscodigo) {
+    public void setUsuarioscodigo(Usuario usuarioscodigo) {
         this.usuarioscodigo = usuarioscodigo;
     }
 
