@@ -7,7 +7,7 @@ build.xml
 core
 nbproject/*
 src/conf/MANIFEST.MF
-src/java/hibernate.cfg.xml
+#src/java/hibernate.cfg.xml
 web/META-INF/*
  
 #java specific
