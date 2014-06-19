@@ -1,7 +1,6 @@
 package model;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -18,7 +17,7 @@ public class Item implements Serializable {
     
     @JoinColumn(name = "Usuarios_codigo", referencedColumnName = "codigo_usuario")
     @ManyToOne(optional = false)
-    private Usuario usuariocodigo;
+    private Usuario usuarioscodigo;
     
     @JoinColumn(name = "Produto_codigo", referencedColumnName = "codigo_produto")
     @ManyToOne(optional = false)
@@ -64,12 +63,12 @@ public class Item implements Serializable {
         this.quantidade = quantidade;
     }
 
-    public Usuario getUsuariocodigo() {
-        return usuariocodigo;
+    public Usuario getUsuarioscodigo() {
+        return usuarioscodigo;
     }
 
-    public void setUsuariocodigo(Usuario usuariocodigo) {
-        this.usuariocodigo = usuariocodigo;
+    public void setUsuarioscodigo(Usuario usuarioscodigo) {
+        this.usuarioscodigo = usuarioscodigo;
     }
 
     public Produto getProdutocodigo() {
@@ -103,5 +102,4 @@ public class Item implements Serializable {
     public void setMarcacodigo(Marca marcacodigo) {
         this.marcacodigo = marcacodigo;
     }
-    
 }

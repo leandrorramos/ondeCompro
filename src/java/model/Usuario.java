@@ -25,7 +25,7 @@ public class Usuario implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date data;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuariocodigo")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioscodigo")
     private Collection<Item> itemCollection;
 
     public Usuario() {
