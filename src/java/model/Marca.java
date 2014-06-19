@@ -10,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlTransient;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 @Entity
 public class Marca implements Serializable {
@@ -53,7 +52,6 @@ public class Marca implements Serializable {
     }
 
     @XmlTransient
-    @JsonIgnore
     public Collection<Item> getItemCollection() {
         return itemCollection;
     }

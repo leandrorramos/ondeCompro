@@ -14,7 +14,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 @Entity
 public class Produto implements Serializable {
@@ -67,7 +66,6 @@ public class Produto implements Serializable {
     }
 
     @XmlTransient
-    @JsonIgnore
     public Collection<Item> getItemCollection() {
         return itemCollection;
     }
