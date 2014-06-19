@@ -7,16 +7,15 @@ padding:0px !important;
 body{
 background:#222526 !important;
 position:relative !important;
-padding:20px !important;
 font-family:verdana !important;
 } 
                                 
 #loginform
 {
-width:550px !important;
+width:481px !important;
 height:auto !important;
-position:relative !important;
-margin:0 auto !important;
+margin:200px auto !important;
+
 }
 
 input
@@ -25,6 +24,7 @@ display:block !important;
 margin:0px auto 15px !important;
 border-radius:5px !important;
 background: #333333 !important;
+font-weight: normal !important;
 width:85% !important;
 padding:12px 20px 12px 10px !important;
 border:none !important;

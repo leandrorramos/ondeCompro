@@ -16,7 +16,7 @@
             <h:form id="formPrincipal">                
                 <p:growl id="growl" showDetail="true" life="1500"/>
                 <p:inputText value="#{usuarioLogadoC.usuario.email}" placeholder="E-mail"/>
-                <p:inputText value="#{usuarioLogadoC.usuario.senha}" placeholder="Senha"/>
+                <p:password value="#{usuarioLogadoC.usuario.senha}" placeholder="Senha"/>
                 <p:commandButton actionListener="#{usuarioLogadoC.fazerLogin}" 
                                  update="growl"
                                  value="Logar" 
