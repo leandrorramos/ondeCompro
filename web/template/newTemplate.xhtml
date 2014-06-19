@@ -17,6 +17,11 @@
             <p:layout style="min-width:1020px;max-width:1020px;min-height:600px">  
                 <p:layoutUnit position="north" size="100">  
                     OndeCompro?
+                    <h:outputLabel value="#{usuarioLogadoC.nomeUsuario}" />
+                    <h:outputLabel value="#{options.absoluteContextPath}" />
+                    <h:form id="formLogout">
+                    <h:commandButton id="logout" value="sair" action="#{usuarioLogadoC.logout}" />
+                    </h:form>
                 </p:layoutUnit>  
                 
                     <p:layoutUnit position="west" size="220">  
@@ -26,7 +31,8 @@
                                     <p:submenu label="Menu">
                                         <p:menuitem value="Categorias" action="categoria" icon="ui-icon-tag"/>
                                         <p:menuitem value="Unidades " action="unidade" icon="ui-icon-lightbulb"/>
-                                        <p:menuitem value="Marca" action="marca" icon="ui-icon-tag" />
+                                        <p:menuitem value="Marcas" action="marca" icon="ui-icon-tag" />
+                                        <p:menuitem value="localidades" action="localidade" icon="ui-icon-tag" />
                                         <p:menuitem value="Usuarios " action="usuario" icon="ui-icon-person"/>
                                         <p:menuitem value="Voltar" action="voltar" icon="ui-icon-arrowthick-1-w"/> 
                                     </p:submenu>

@@ -1,0 +1,19 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    
+            <h:form id="formPrincipal">                
+                    <p:growl id="growl" showDetail="true" life="1500"/>
+                    <p:panelGrid id="panelLogin" columns="2">
+                        <h:outputText value="Codigo User:" />
+                        <p:inputText value="#{usuarioLogadoC.usuario.codigoUsuario}" />
+                        <h:outputText value="Senha:" />
+                        <p:inputText value="#{usuarioLogadoC.usuario.senha}" />
+                    </p:panelGrid>
+                    <p:commandButton value="Entrar"
+                                     actionListener="#{usuarioLogadoC.fazerLogin}" />
+                
+            </h:form>        
+</html>

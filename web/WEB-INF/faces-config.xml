@@ -21,8 +21,18 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
+            <from-outcome>localidade</from-outcome>
+            <to-view-id>/localidade/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>usuario</from-outcome>
             <to-view-id>/usuario/index.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>logout</from-outcome>
+            <to-view-id>login.xhtml</to-view-id>
             <redirect />
         </navigation-case>
         <navigation-case>

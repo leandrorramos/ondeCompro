@@ -22,13 +22,14 @@ public class Localidade implements Serializable {
     private Integer codigoLocalidade;
     private String nome;
     private String descricao;
+    //private Integer usuariocodigo;
         
-    @JoinColumn(name = "Usuarios_codigo", referencedColumnName = "codigo_usuario")
-    @ManyToOne(optional = false)
-    private Usuario usuariocodigo;
+    @JoinColumn(name = "Usuario_codigo", referencedColumnName = "codigo_usuario")
+    @ManyToOne
+    private Usuario usuario;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "localidadecodigo")
-    private Collection<Item> itemCollection;
+    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "localidadecodigo")
+    //private Collection<Item> itemCollection;
 
     public Localidade() {
     }
@@ -66,20 +67,20 @@ public class Localidade implements Serializable {
         this.descricao = descricao;
     }
     
-    public Usuario getUsuariocodigo() {
-        return usuariocodigo;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setUsuariocodigo(Usuario usuariocodigo) {
-        this.usuariocodigo = usuariocodigo;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
-    @XmlTransient    
+    /*@XmlTransient    
     public Collection<Item> getItemCollection() {
         return itemCollection;
     }
 
     public void setItemCollection(Collection<Item> itemCollection) {
         this.itemCollection = itemCollection;
-    }
+    }*/
 }

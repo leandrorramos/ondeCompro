@@ -78,4 +78,8 @@ public abstract class DAOGenerico <E, PK extends Serializable>{
             session.close();
         }
     }
+    
+    public E findLogin(String email, String senha){
+        return (E) session.get(classe,email);
+    }
 }
