@@ -89,8 +89,6 @@ public abstract class DAOGenerico <E, PK extends Serializable>{
             query.setParameter("senha", senha);             
             list = query.list();
             return list;
-            //Criteria cri = session.createCriteria(classe);
-            //return cri.list();
         } finally {
             session.close();
         }
