@@ -11,7 +11,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlTransient;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 @Entity
 public class Usuario implements Serializable {
@@ -94,7 +93,6 @@ public class Usuario implements Serializable {
     }
 
     @XmlTransient
-    @JsonIgnore
     public Collection<Item> getItemCollection() {
         return itemCollection;
     }
