@@ -1,0 +1,87 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:decorate template="../template/newTemplate.xhtml">
+        <ui:define name="centro">
+            <h:form id="formPrincipal">
+                <p:dataTable value="#{categoriaC.categoriaLista}"
+                             id="tabelaCategoria" 
+                             style="width:70%" 
+                             var="categoria"
+                             rows="5"
+                             paginator="true"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10">
+                    <f:facet name="header">Lista de Categorias Cadastradas</f:facet>
+                    <p:column headerText="Categoria">
+                        <h:outputText value="#{categoria.descricao}" />
+                    </p:column>
+
+                    <p:column headerText="Ações" style="width: 40%; text-align: center">                     
+                        <p:commandButton title="Alterar" update=":Alterar"
+                                         oncomplete="dialogAlterar.show()" immediate="true" value="Alterar">
+                            <f:setPropertyActionListener value="#{categoria}"
+                                                         target="#{categoriaC.categoria}" />
+                            
+
+                        </p:commandButton>
+                        <p:commandButton title="Excluir" update=":Excluir"
+                                         oncomplete="confirmation.show()" immediate="true" value="Excluir">
+                            <f:setPropertyActionListener value="#{categoria}"
+                                                         target="#{categoriaC.categoria}" />
+                            
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+                <br />
+                <p:commandButton value="Cadastrar" id="cadastrar"
+                                 oncomplete="dialogCadastrar.show()"/>
+            </h:form>
+        
+            <p:dialog header="Cadastrar" widgetVar="dialogCadastrar" modal="true" appendTo="@(body)">
+                <h:form id="formCadastrar">
+                    <p:growl id="growl" showDetail="true" life="1500"/>
+                    <p:panelGrid id="panelCadastrar" columns="2">
+                        <h:outputText value="Nome:" />
+                        <p:inputText value="#{categoriaC.categoria.descricao}" />
+                    </p:panelGrid>
+                    <p:commandButton value="Cadastrar"
+                                     actionListener="#{categoriaC.salvarCategoria}"
+                                     update=":formPrincipal:tabelaCategoria growl"
+                                     oncomplete="dialogCadastrar.hide()" />
+                </h:form>
+            </p:dialog>
+            
+            <p:dialog header="Alterar" widgetVar="dialogAlterar" modal="true" id="Alterar" appendTo="@(body)">
+                <h:form id="formAlterar">
+                    <p:growl id="growl" showDetail="true" life="1500"/>
+                    <p:panelGrid id="panelAlterar" columns="2">
+                        <h:outputText value="Descrição:" />
+                        <p:inputText value="#{categoriaC.categoria.descricao}" />
+                    </p:panelGrid>
+                    <p:commandButton value="Alterar"
+                                     actionListener="#{categoriaC.atualizarCategoria}"
+                                     update=":formPrincipal:tabelaCategoria growl"
+                                     oncomplete="dialogAlterar.hide()" />
+
+                </h:form>
+            </p:dialog>
+
+            <p:confirmDialog id="Excluir"
+                             message="Você gostaria de Deletar o #{categoriaC.categoria.descricao}?"
+                             header="Excluir" severity="alert" appendTo="@(body)" widgetVar="confirmation">
+                <h:form id="formExcluir">
+                    <p:growl id="growl" showDetail="true" life="1500"/>
+                    <p:commandButton id="confirm" value="Sim"
+                                     oncomplete="confirmation.hide()"
+                                     actionListener="#{categoriaC.deleteCategoria}"
+                                     update=":formPrincipal:tabelaCategoria growl" />
+                    <p:commandButton id="decline" value="Não"
+                                     onclick="confirmation.hide()" type="button" />
+                </h:form>
+            </p:confirmDialog>
+        </ui:define>
+    </ui:decorate>
+</html>
