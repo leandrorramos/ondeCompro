@@ -1,7 +1,6 @@
 package model;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -18,7 +17,7 @@ public class Item implements Serializable {
     
     @JoinColumn(name = "Usuarios_codigo", referencedColumnName = "codigo_usuario")
     @ManyToOne(optional = false)
-    private Usuario usuarioscodigo;
+    private Usuarios usuarioscodigo;
     
     @JoinColumn(name = "Produto_codigo", referencedColumnName = "codigo_produto")
     @ManyToOne(optional = false)
@@ -64,11 +63,11 @@ public class Item implements Serializable {
         this.quantidade = quantidade;
     }
 
-    public Usuario getUsuarioscodigo() {
+    public Usuarios getUsuarioscodigo() {
         return usuarioscodigo;
     }
 
-    public void setUsuarioscodigo(Usuario usuarioscodigo) {
+    public void setUsuarioscodigo(Usuarios usuarioscodigo) {
         this.usuarioscodigo = usuarioscodigo;
     }
 
