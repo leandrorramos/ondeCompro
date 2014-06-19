@@ -16,6 +16,11 @@
             <redirect />
         </navigation-case>
         <navigation-case>
+            <from-outcome>usuario</from-outcome>
+            <to-view-id>/usuario/index.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
             <from-outcome>voltar</from-outcome>
             <to-view-id>/template/newTemplate.xhtml</to-view-id>
             <redirect />
