@@ -5,17 +5,18 @@
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ondecompro?zeroDateTimeBehavior=convertToNull</property>
-    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.username">ufma</property>
+    <property name="hibernate.connection.password">ufma</property>
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.format_sql">true</property>
     <property name="hibernate.current_session_context_class">thread</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
-    <property name="hibernate.connection.password"></property>
     <mapping class="model.Categoria"/>
     <mapping class="model.Item"/>
     <mapping class="model.Marca"/>
     <mapping class="model.Produto"/>
     <mapping class="model.Unidade"/>
+    <mapping class="model.Localidade"/>
     <mapping class="model.Usuario"/>
   </session-factory>
 </hibernate-configuration>
