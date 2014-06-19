@@ -8,11 +8,11 @@ import DAO.UnidadeDAO;
 
 @ManagedBean(name = "unidadeC")
 @ViewScoped
-public class UnidadeC {
+public class UnidadeC{
 
     private Unidade unidade = new Unidade();
     private List<Unidade> unidadeLista;
-    
+        
     public UnidadeC(){
         unidadeLista = new UnidadeDAO().findAll();
         if (unidade == null) {

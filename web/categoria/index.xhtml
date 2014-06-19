@@ -7,7 +7,7 @@
         <ui:define name="centro">
             <h:form id="formPrincipal">
                 <p:dataTable value="#{categoriaC.categoriaLista}"
-                             id="tabelaCategorias" 
+                             id="tabelaCategoria" 
                              style="width:70%" 
                              var="categoria"
                              rows="5"
@@ -49,7 +49,7 @@
                     </p:panelGrid>
                     <p:commandButton value="Cadastrar"
                                      actionListener="#{categoriaC.salvarCategoria}"
-                                     update=":formPrincipal:tabelaCategorias growl"
+                                     update=":formPrincipal:tabelaCategoria growl"
                                      oncomplete="dialogCadastrar.hide()" />
                 </h:form>
             </p:dialog>
@@ -63,7 +63,7 @@
                     </p:panelGrid>
                     <p:commandButton value="Alterar"
                                      actionListener="#{categoriaC.atualizarCategoria}"
-                                     update=":formPrincipal:tabelaCategorias growl"
+                                     update=":formPrincipal:tabelaCategoria growl"
                                      oncomplete="dialogAlterar.hide()" />
 
                 </h:form>
@@ -77,7 +77,7 @@
                     <p:commandButton id="confirm" value="Sim"
                                      oncomplete="confirmation.hide()"
                                      actionListener="#{categoriaC.deleteCategoria}"
-                                     update=":formPrincipal:tabelaCategorias growl" />
+                                     update=":formPrincipal:tabelaCategoria growl" />
                     <p:commandButton id="decline" value="Não"
                                      onclick="confirmation.hide()" type="button" />
                 </h:form>

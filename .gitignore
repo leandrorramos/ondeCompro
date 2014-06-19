@@ -20,8 +20,4 @@ web/META-INF/*
 *~
 *.swp
 *.DS_Store
-<<<<<<< HEAD
 *.lock
-=======
-*.lock
->>>>>>> 2806c9882eb7a4c7d0f96d4478602e1be0a40e5a

@@ -50,7 +50,7 @@ public class Categoria implements Serializable {
         this.descricao = descricao;
     }
 
-    @XmlTransient
+    @XmlTransient    
     public Collection<Item> getItemCollection() {
         return itemCollection;
     }

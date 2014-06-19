@@ -2,53 +2,54 @@ package model;
 
 import java.io.Serializable;
 import java.util.Collection;
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-public class Produto implements Serializable {
+public class Localidade implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "codigo_produto")
-    private Integer codigoProduto;
+    @Column(name = "codigo_localidade")
+    private Integer codigoLocalidade;
     private String nome;
     private String descricao;
+        
+    @JoinColumn(name = "Usuarios_codigo", referencedColumnName = "codigo_usuario")
+    @ManyToOne(optional = false)
+    private Usuario usuariocodigo;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "produtocodigo")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "localidadecodigo")
     private Collection<Item> itemCollection;
 
-    public Produto() {
+    public Localidade() {
     }
 
-    public Produto(Integer codigoProduto) {
-        this.codigoProduto = codigoProduto;
+    public Localidade(Integer codigoLocalidade) {
+        this.codigoLocalidade = codigoLocalidade;
     }
 
-    public Produto(Integer codigoProduto, String nome, String descricao) {
-        this.codigoProduto = codigoProduto;
-        this.nome = nome;
+    public Localidade(Integer codigoLocalidade, String descricao) {
+        this.codigoLocalidade = codigoLocalidade;
         this.descricao = descricao;
     }
 
-    public Integer getCodigoProduto() {
-        return codigoProduto;
+    public Integer getCodigoLocalidade() {
+        return codigoLocalidade;
     }
 
-    public void setCodigoProduto(Integer codigoProduto) {
-        this.codigoProduto = codigoProduto;
+    public void setCodigoLocalidade(Integer codigoLocalidade) {
+        this.codigoLocalidade = codigoLocalidade;
     }
-
+    
     public String getNome() {
         return nome;
     }
@@ -63,6 +64,14 @@ public class Produto implements Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+    
+    public Usuario getUsuariocodigo() {
+        return usuariocodigo;
+    }
+
+    public void setUsuariocodigo(Usuario usuariocodigo) {
+        this.usuariocodigo = usuariocodigo;
     }
 
     @XmlTransient    
