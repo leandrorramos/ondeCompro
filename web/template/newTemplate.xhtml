@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <title>OndeCompro?</title>
+    </h:head>
+    <h:body>
+        <div align="center">
+            <p:layout style="min-width:1020px;max-width:1020px;min-height:600px">  
+                <p:layoutUnit position="north" size="100">  
+                    OndeCompro?
+                </p:layoutUnit>  
+                
+                    <p:layoutUnit position="west" size="220">  
+                        <ui:insert name="menu">
+                            <h:form>
+                                <p:menu style="width: 200px">
+                                    <p:submenu label="Menu">
+                                        <p:menuitem value="Categorias" action="categoria" icon="ui-icon-tag"/>
+                                        <p:menuitem value="Unidades " action="unidade" icon="ui-icon-lightbulb"/>
+                                        <p:menuitem value="Voltar" action="voltar" icon="ui-icon-arrowthick-1-w"/> 
+                                    </p:submenu>
+                                </p:menu>
+                            </h:form>
+                        </ui:insert>
+                    </p:layoutUnit>
+                
+                <p:layoutUnit position="center">  
+                    <ui:insert name="centro">
+                        Bem vindo ao OndeCompro?
+                    </ui:insert>
+                </p:layoutUnit>  
+            </p:layout>  
+        </div>
+    </h:body>
+</html>

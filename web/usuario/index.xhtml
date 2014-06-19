@@ -1,0 +1,87 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:decorate template="../template/newTemplate.xhtml">
+        <ui:define name="centro">
+            <h:form id="formPrincipal">
+                <p:dataTable value="#{unidadeC.unidadeLista}"
+                             id="tabelaUnidades" 
+                             style="width:70%" 
+                             var="unidade"
+                             rows="5"
+                             paginator="true"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10">
+                    <f:facet name="header">Lista de Unidades Cadastradas</f:facet>
+                    <p:column headerText="Unidade">
+                        <h:outputText value="#{unidade.descricao}" />
+                    </p:column>
+
+                    <p:column headerText="Ações" style="width: 40%; text-align: center">                     
+                        <p:commandButton title="Alterar" update=":Alterar"
+                                         oncomplete="dialogAlterar.show()" immediate="true" value="Alterar">
+                            <f:setPropertyActionListener value="#{unidade}"
+                                                         target="#{unidadeC.unidade}" />
+                            
+
+                        </p:commandButton>
+                        <p:commandButton title="Excluir" update=":Excluir"
+                                         oncomplete="confirmation.show()" immediate="true" value="Excluir">
+                            <f:setPropertyActionListener value="#{unidade}"
+                                                         target="#{unidadeC.unidade}" />
+                            
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+                <br />
+                <p:commandButton value="Cadastrar" id="cadastrar"
+                                 oncomplete="dialogCadastrar.show()"/>
+            </h:form>
+        
+            <p:dialog header="Cadastrar" widgetVar="dialogCadastrar" modal="true" appendTo="@(body)">
+                <h:form id="formCadastrar">
+                    <p:growl id="growl" showDetail="true" life="1500"/>
+                    <p:panelGrid id="panelCadastrar" columns="2">
+                        <h:outputText value="Nome:" />
+                        <p:inputText value="#{unidadeC.unidade.descricao}" />
+                    </p:panelGrid>
+                    <p:commandButton value="Cadastrar"
+                                     actionListener="#{unidadeC.salvarUnidade}"
+                                     update=":formPrincipal:tabelaUnidades growl"
+                                     oncomplete="dialogCadastrar.hide()" />
+                </h:form>
+            </p:dialog>
+            
+            <p:dialog header="Alterar" widgetVar="dialogAlterar" modal="true" id="Alterar" appendTo="@(body)">
+                <h:form id="formAlterar">
+                    <p:growl id="growl" showDetail="true" life="1500"/>
+                    <p:panelGrid id="panelAlterar" columns="2">
+                        <h:outputText value="Descrição:" />
+                        <p:inputText value="#{unidadeC.unidade.descricao}" />
+                    </p:panelGrid>
+                    <p:commandButton value="Alterar"
+                                     actionListener="#{unidadeC.alterarUnidade}"
+                                     update=":formPrincipal:tabelaUnidades growl"
+                                     oncomplete="dialogAlterar.hide()" />
+
+                </h:form>
+            </p:dialog>
+
+            <p:confirmDialog id="Excluir"
+                             message="Você gostaria de Deletar o #{unidadeC.unidade.descricao}?"
+                             header="Excluir" severity="alert" appendTo="@(body)" widgetVar="confirmation">
+                <h:form id="formExcluir">
+                    <p:growl id="growl" showDetail="true" life="1500"/>
+                    <p:commandButton id="confirm" value="Sim"
+                                     oncomplete="confirmation.hide()"
+                                     actionListener="#{unidadeC.excluirUnidade}"
+                                     update=":formPrincipal:tabelaUnidades growl" />
+                    <p:commandButton id="decline" value="Não"
+                                     onclick="confirmation.hide()" type="button" />
+                </h:form>
+            </p:confirmDialog>
+        </ui:define>
+    </ui:decorate>
+</html>
