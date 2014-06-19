@@ -13,7 +13,8 @@
                         <p:inputText value="#{usuarioLogadoC.usuario.senha}" />
                     </p:panelGrid>
                     <p:commandButton value="Entrar"
-                                     actionListener="#{usuarioLogadoC.fazerLogin}" />
+                                     actionListener="#{usuarioLogadoC.fazerLogin}" 
+                                     update="growl"/>
                 
             </h:form>        
 </html>

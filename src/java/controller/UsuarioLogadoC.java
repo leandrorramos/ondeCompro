@@ -3,20 +3,15 @@ package controller;
 //import com.estagio.business.UsuarioBO;  
 //import dao.UsuarioDAO;
 import DAO.UsuarioDAO;
-import static com.fasterxml.classmate.AnnotationOverrides.builder;  
 import java.io.IOException;  
 import java.io.Serializable;
+import java.util.List;  
 import javax.annotation.PostConstruct;  
 import javax.faces.application.FacesMessage;  
 import javax.faces.bean.ManagedBean;  
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;  
 import javax.faces.context.FacesContext;  
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import model.Usuario;
   
 /** 
@@ -24,7 +19,7 @@ import model.Usuario;
 * @since 01/05/2012 
 */  
 @ManagedBean(name="usuarioLogadoC")  
-@RequestScoped
+@SessionScoped
 public class UsuarioLogadoC implements Serializable{  
       
     private Usuario usuario;  
@@ -65,50 +60,21 @@ public class UsuarioLogadoC implements Serializable{
         this.inicializa();
     }  
     
-    public String fazerLogin() throws IOException {
-        // obtem seu entityManager
-        
-    CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-    CriteriaQuery<Usuario> query = builder.createQuery(Usuario.class);
-    Root<Usuario> u = query.from(Usuario.class);
-    query.select(u);
-    query.where(
-            builder.equal(u.get("email"), this.usuario.getEmail()), 
-            builder.equal(u.get("senha"), this.usuario.getSenha())
-    );
-
-    TypedQuery<Usuario> typedQuery = entityManager.createQuery(query);
-    Usuario user = typedQuery.getSingleResult();
-
-    if(user != null) {
-        //logarUsuario
-        usuarioLogado = Boolean.TRUE;  
-        usuario = user;  
-
-        //redirecionar usuario logado
-        FacesContext.getCurrentInstance().getExternalContext().redirect("template/newTemplate.xhtml");    
-        return "";
-    } 
-        // não logado
-        return null;
-    }
-    
-    /*
     public void fazerLogin()  
     {  
         try {
-            Usuario u = null;
-            u = new UsuarioDAO().findById(this.usuario.getCodigoUsuario());
+            List<Usuario> u = null;
+            u = new UsuarioDAO().findLogin(this.usuario.getEmail(), this.usuario.getSenha());
               
-            if(u == null)  
+            if(u.size() < 1)  
             {  
-                FacesContext.getCurrentInstance().addMessage(null,   
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Usuario não encontrado ou senha incorreta, tente novamente."));  
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage(null, new FacesMessage("Erro",  "Usuário e/ou senha inválidos") );  
             }  
             else  
             {  
                 usuarioLogado = Boolean.TRUE;  
-                usuario = u;  
+                usuario = u.get(0);  
                 
                 //redirecionar usuario logado
                 FacesContext.getCurrentInstance().getExternalContext().redirect("usuario/index.xhtml");  
@@ -119,7 +85,7 @@ public class UsuarioLogadoC implements Serializable{
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Erro ao efetuar login, tente novamente."));  
         }  
     }  
-    */
+    
     public String getNomeUsuario() throws IOException  
     {  
         if(usuarioLogado)  
@@ -127,7 +93,7 @@ public class UsuarioLogadoC implements Serializable{
             return usuario.getNome();
         }  
           
-        FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");  
+        FacesContext.getCurrentInstance().getExternalContext().redirect("../login.xhtml");  
         return "";  
     }  
       
