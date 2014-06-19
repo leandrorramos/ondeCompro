@@ -61,14 +61,15 @@ public class UsuarioLogadoC implements Serializable{
     
     public void fazerLogin()  
     {  
+        List<Usuario> u = null;
+        
         try {
-            List<Usuario> u = null;
             u = new UsuarioDAO().findLogin(this.usuario.getEmail(), this.usuario.getSenha());
               
             if(u.size() < 1)  
             {  
                 FacesContext context = FacesContext.getCurrentInstance();
-                context.addMessage(null, new FacesMessage("Erro",  "Usuário e/ou senha inválidos") );  
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Erro",  "Usuário e/ou senha inválidos") );  
             }  
             else  
             {  

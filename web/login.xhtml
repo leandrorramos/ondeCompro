@@ -4,17 +4,24 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets">
     
+    <h:head>
+        <h:outputStylesheet name="./css/login.css"/>
+    </h:head>
+    
+    <div id="loginform">
+        <div id="facebook"><i class="fa fa-facebook"></i><div id="connect">Conecte com facebook</div></div>
+        <div id="mainlogin">
+            <div id="or">ou</div>
+            <h1>OndeCompro?</h1>
             <h:form id="formPrincipal">                
-                    <p:growl id="growl" showDetail="true" life="1500"/>
-                    <p:panelGrid id="panelLogin" columns="2">
-                        <h:outputText value="Email:" />
-                        <p:inputText value="#{usuarioLogadoC.usuario.email}" />
-                        <h:outputText value="Senha:" />
-                        <p:inputText value="#{usuarioLogadoC.usuario.senha}" />
-                    </p:panelGrid>
-                    <p:commandButton value="Entrar"
-                                     actionListener="#{usuarioLogadoC.fazerLogin}" 
-                                     update="growl"/>
-                
-            </h:form>        
+                <p:growl id="growl" showDetail="true" life="1500"/>
+                <p:inputText value="#{usuarioLogadoC.usuario.email}" placeholder="E-mail"/>
+                <p:password value="#{usuarioLogadoC.usuario.senha}" placeholder="Senha"/>
+                <p:commandButton actionListener="#{usuarioLogadoC.fazerLogin}" 
+                                 update="growl"
+                                 value="Logar" 
+                                 styleClass="fa fa-arrow-right"/>
+            </h:form>
+        </div>
+    </div>
 </html>
