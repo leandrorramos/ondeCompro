@@ -13,6 +13,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;  
 import javax.persistence.EntityManager;
 import model.Usuario;
+import util.Options;
   
 /** 
 * @author Cristian Urbainski 
@@ -24,8 +25,7 @@ public class UsuarioLogadoC implements Serializable{
       
     private Usuario usuario;  
     private Boolean usuarioLogado;        
-    private static UsuarioLogadoC instance;  
-    private EntityManager entityManager;
+    private static UsuarioLogadoC instance;      
   
     @PostConstruct  
     public void inicializa()  
@@ -56,7 +56,7 @@ public class UsuarioLogadoC implements Serializable{
     {  
         this.usuario = null;
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();  
-        FacesContext.getCurrentInstance().getExternalContext().redirect("../login.xhtml");  
+        FacesContext.getCurrentInstance().getExternalContext().redirect(Options.getBaseUrl()+"/login.xhtml");  
         this.inicializa();
     }  
     
@@ -77,7 +77,7 @@ public class UsuarioLogadoC implements Serializable{
                 usuario = u.get(0);  
                 
                 //redirecionar usuario logado
-                FacesContext.getCurrentInstance().getExternalContext().redirect("usuario/index.xhtml");  
+                FacesContext.getCurrentInstance().getExternalContext().redirect(Options.getBaseUrl());  
             }  
               
         } catch (Exception e) {  
@@ -93,7 +93,7 @@ public class UsuarioLogadoC implements Serializable{
             return usuario.getNome();
         }  
           
-        FacesContext.getCurrentInstance().getExternalContext().redirect("../login.xhtml");  
+        FacesContext.getCurrentInstance().getExternalContext().redirect(Options.getBaseUrl()+"/login.xhtml");  
         return "";  
     }  
       

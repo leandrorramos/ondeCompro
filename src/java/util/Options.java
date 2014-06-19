@@ -6,15 +6,15 @@
 
 package util;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+//import javax.faces.bean.ManagedBean;
+//import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
-@ManagedBean(name = "options")
+//@ManagedBean(name = "options")
 public class Options {
     
-    public String getAbsoluteContextPath(){
+    public static String getBaseUrl(){
         HttpServletRequest request = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
         StringBuffer buffer = new StringBuffer();
         buffer.append(request.getScheme());  //http,https,...
@@ -25,7 +25,7 @@ public class Options {
             buffer.append(request.getServerPort()); //8080
         }
         if (request.getContextPath() !=""){
-            buffer.append("/");
+            //buffer.append("/");
             buffer.append(request.getContextPath());
         }
         else 
