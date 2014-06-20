@@ -1,8 +1,6 @@
 package model;
 
 import java.io.Serializable;
-import java.util.Collection;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,8 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 public class Localidade implements Serializable {
@@ -22,7 +18,6 @@ public class Localidade implements Serializable {
     private Integer codigoLocalidade;
     private String nome;
     private String descricao;
-    //private Integer usuariocodigo;
         
     @JoinColumn(name = "Usuario_codigo", referencedColumnName = "codigo_usuario")
     @ManyToOne
@@ -74,13 +69,4 @@ public class Localidade implements Serializable {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-
-    /*@XmlTransient    
-    public Collection<Item> getItemCollection() {
-        return itemCollection;
-    }
-
-    public void setItemCollection(Collection<Item> itemCollection) {
-        this.itemCollection = itemCollection;
-    }*/
 }

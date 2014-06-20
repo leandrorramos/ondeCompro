@@ -48,6 +48,18 @@
                         <p:inputText value="#{empresaC.empresa.nomeFantasia}" />
                         <h:outputText value="CNPJ:" />
                         <p:inputText value="#{empresaC.empresa.cnpj}" />
+                        <h:outputText value="Logradouro:" />
+                        <p:inputText value="#{empresaC.empresa.logradouro}" />
+                        <h:outputText value="Número" />
+                        <p:inputText value="#{empresaC.empresa.numero}" />
+                        <h:outputText value="Bairro" />
+                        <p:inputText value="#{empresaC.empresa.bairro}" />
+                        <h:outputText value="CEP" />
+                        <p:inputText value="#{empresaC.empresa.cep}" />
+                        <h:outputText value="Latitude" />
+                        <p:inputText value="#{empresaC.empresa.latitude}" />
+                        <h:outputText value="Longitude" />
+                        <p:inputText value="#{empresaC.empresa.longitude}" />
                     </p:panelGrid>
                     <p:commandButton value="Cadastrar"
                                      actionListener="#{empresaC.salvarEmpresa}"
@@ -60,10 +72,22 @@
                 <h:form id="formAlterar">
                     <p:growl id="growl" showDetail="true" life="1500"/>
                     <p:panelGrid id="panelAlterar" columns="2">
-                         <h:outputText value="Nome Fantasia:" />
+                        <h:outputText value="Nome Fantasia:" />
                         <p:inputText value="#{empresaC.empresa.nomeFantasia}" />
                         <h:outputText value="CNPJ:" />
                         <p:inputText value="#{empresaC.empresa.cnpj}" />
+                        <h:outputText value="Logradouro:" />
+                        <p:inputText value="#{empresaC.empresa.logradouro}" />
+                        <h:outputText value="Número" />
+                        <p:inputText value="#{empresaC.empresa.numero}" />
+                        <h:outputText value="Bairro" />
+                        <p:inputText value="#{empresaC.empresa.bairro}" />
+                        <h:outputText value="CEP" />
+                        <p:inputText value="#{empresaC.empresa.cep}" />
+                        <h:outputText value="Latitude" />
+                        <p:inputText value="#{empresaC.empresa.latitude}" />
+                        <h:outputText value="Longitude" />
+                        <p:inputText value="#{empresaC.empresa.longitude}" />
                     </p:panelGrid>
                     <p:commandButton value="Alterar"
                                      actionListener="#{empresaC.atualizarEmpresa}"
