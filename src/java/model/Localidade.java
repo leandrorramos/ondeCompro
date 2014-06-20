@@ -18,7 +18,10 @@ public class Localidade implements Serializable {
     private Integer codigoLocalidade;
     private String nome;
     private String descricao;
-        
+
+    private double latitude;
+    private double longitude;
+            
     @JoinColumn(name = "Usuario_codigo", referencedColumnName = "codigo_usuario")
     @ManyToOne
     private Usuario usuario;
@@ -68,5 +71,21 @@ public class Localidade implements Serializable {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+    
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 }
