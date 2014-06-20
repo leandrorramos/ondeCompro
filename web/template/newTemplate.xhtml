@@ -34,10 +34,10 @@
                                         <p:menuitem value="Comentario" action="comentario" icon="ui-icon-arrowthick-1-w"/> 
                                         <p:menuitem value="Unidades " action="unidade" icon="ui-icon-lightbulb"/>
                                         <p:menuitem value="Marcas" action="marca" icon="ui-icon-tag" />
-                                        <p:menuitem value="localidades" action="localidade" icon="ui-icon-tag" />
-                                        <p:menuitem value="produtos" action="produto" icon="ui-icon-tag" />
-                                        <p:menuitem value="cidades" action="cidade" icon="ui-icon-tag" />
-                                        <p:menuitem value="itens" action="item" icon="ui-icon-tag" />
+                                        <p:menuitem value="Localidades" action="localidade" icon="ui-icon-tag" />
+                                        <p:menuitem value="Produtos" action="produto" icon="ui-icon-tag" />
+                                        <p:menuitem value="Cidades" action="cidade" icon="ui-icon-tag" />
+                                        <p:menuitem value="Itens" action="item" icon="ui-icon-tag" />
                                         <p:menuitem value="Usuarios " action="usuario" icon="ui-icon-person"/>
                                         <p:menuitem value="Preços" action="preco" icon="ui-icon-person"/>
                                         <p:menuitem value="Voltar" action="voltar" icon="ui-icon-arrowthick-1-w"/> 
@@ -46,10 +46,57 @@
                             </h:form>
                         </ui:insert>
                     </p:layoutUnit>
-                
                 <p:layoutUnit position="center">  
                     <ui:insert name="centro">
-                        Bem vindo ao OndeCompro?
+                        <h:form id="form">
+                            <p:carousel value="#{precoC.precoLista}" headerText="Feed de Preços" var="preco" itemStyleClass="precoItem" numVisible="2" easing="easeOutBounce" styleClass="carouselAdvanced">
+                                <p:panelGrid columns="2" style="width:100%" columnClasses="label,value">
+                                    <h:outputText value="Item:" />
+                                    <h:outputText value="#{preco.item.produtocodigo.descricao} #{preco.item.marcacodigo.descricao} #{preco.item.unidadecodigo.descricao}" />
+                                    <h:outputText value="Local" />
+                                    <h:outputText value="#{preco.localidade.descricao}" />
+                                    <h:outputText value="Valor:" />
+                                    <h:outputText value="R$ #{preco.valor}"/>
+                                    <h:outputText value="Promoção" />
+                                    <h:outputText value="#{preco.promocao}" />
+                                    <h:outputText value="Usuário" />
+                                    <h:outputText value="#{preco.item.usuarioscodigo.nome} - #{preco.item.usuarioscodigo.email}" />
+                                    
+                                    <f:facet name="footer">
+                                        <p:commandButton title="Visualizar" update=":visualizar"
+                                                         oncomplete="dialogVisulizar.show()" immediate="true" icon="ui-icon-search">
+                                        <f:setPropertyActionListener value="#{preco}"
+                                                                     target="#{precoC.preco}" />
+
+                                        </p:commandButton>
+                                        <p:commandButton title="Comentar" update=":visualizar"
+                                                         oncomplete="dialogVisulizar.show()" immediate="true" icon="ui-icon-comment">
+                                        <f:setPropertyActionListener value="#{preco}"
+                                                                     target="#{precoC.preco}" />
+
+                                        </p:commandButton>
+                                        <p:commandButton title="Pingar" update=":visualizar"
+                                                         oncomplete="dialogVisulizar.show()" immediate="true" icon="ui-icon-tag">
+                                        <f:setPropertyActionListener value="#{preco}"
+                                                                     target="#{precoC.preco}" />
+
+                                        </p:commandButton>
+                                    </f:facet>
+                                </p:panelGrid>
+                            </p:carousel>
+                        </h:form>
+                        <p:dialog header="Visulizar" widgetVar="dialogVisulizar" modal="true" id="visualizar" appendTo="@(body)">
+                                <h:form id="formVisualizar">
+                                    <p:panelGrid id="panelVisualizar" columns="2">
+                                        <h:outputText value="Localidade:" />
+                                        <h:outputText value="#{precoC.preco.localidade.descricao}" />
+                                        <h:outputText value="Item:" />
+                                        <h:outputText value="#{precoC.preco.item.produtocodigo.descricao} #{precoC.preco.item.marcacodigo.descricao} #{precoC.preco.item.unidadecodigo.descricao}" />
+                                        <h:outputText value="Valor:" />
+                                        <h:outputText value="R$ #{precoC.preco.valor}" />
+                                    </p:panelGrid>
+                                </h:form>
+                            </p:dialog>
                     </ui:insert>
                 </p:layoutUnit>  
             </p:layout>  

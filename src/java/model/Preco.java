@@ -18,14 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author Diogo
- */
 @Entity
-@Table(name = "preco")
-@XmlRootElement
-
 public class Preco implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -33,10 +26,8 @@ public class Preco implements Serializable {
     @Basic(optional = false)
     @Column(name = "codigo_preco")
     private Integer codigoPreco;
-    @Column(name = "valor")
-    private Long valor;
-    @Column(name = "promocao")
-    private Short promocao;
+    private float valor;
+    private String promocao;
 
     @JoinColumn(name = "Usuarios_codigo", referencedColumnName = "codigo_usuario")
     @ManyToOne
@@ -49,6 +40,7 @@ public class Preco implements Serializable {
     @JoinColumn(name = "Item_codigo", referencedColumnName = "codigo_item")
     @ManyToOne
     private Item item;
+    
     public Preco() {
     }
 
@@ -64,19 +56,26 @@ public class Preco implements Serializable {
         this.codigoPreco = codigoPreco;
     }
 
-    public Long getValor() {
+    public float getValor() {
         return valor;
     }
 
-    public void setValor(Long valor) {
+    public void setValor(Float valor) {
         this.valor = valor;
     }
 
-    public Short getPromocao() {
+    public String getPromocao() {
+        System.out.println("Entrei aqui");
+        if (promocao.equals("1")){
+            promocao = "SIM";
+        }
+        else{
+            promocao = "NÃO";
+        }
         return promocao;
     }
 
-    public void setPromocao(Short promocao) {
+    public void setPromocao(String promocao) {
         this.promocao = promocao;
     }
 
@@ -107,28 +106,5 @@ public class Preco implements Serializable {
 
     public void setItem(Item item) {
         this.item = item;
-    }
-    
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (codigoPreco != null ? codigoPreco.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Preco)) {
-            return false;
-        }
-        Preco other = (Preco) object;
-        if ((this.codigoPreco == null && other.codigoPreco != null) || (this.codigoPreco != null && !this.codigoPreco.equals(other.codigoPreco))) {
-            return false;
-        }
-        return true;
-    }
-
-    
-    
+    } 
 }

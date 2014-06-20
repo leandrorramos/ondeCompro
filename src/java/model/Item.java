@@ -107,16 +107,6 @@ public class Item implements Serializable,BaseEntity {
     public void setMarcacodigo(Marca marcacodigo) {
         this.marcacodigo = marcacodigo;
     }
-    
-    
-    @Override
-    public int hashCode() { return getCodigoItem() * 8; }
-
-    @Override
-    public boolean equals(Object obj) {
-    
-        return (obj instanceof Item) && ((Item) obj).getCodigoItem().equals(this.getCodigoItem());
-    }
 
     @Override
     public Long getId() {
