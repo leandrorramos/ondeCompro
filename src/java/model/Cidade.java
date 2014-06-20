@@ -15,7 +15,7 @@ public class Cidade implements Serializable {
     @Column(name = "id_cidade")
     private Integer idCidade;
     private String cidade;
-
+    
     public Cidade() {
     }
 

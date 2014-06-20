@@ -31,8 +31,8 @@
                         <h:outputText value="#{localidade.bairro}" />
                     </p:column>
                     <p:column headerText="Cidade">
-                        <h:outputText value="#{localidade.cidade.descricao}" />
-                    </p:column>                    
+                        <h:outputText value="#{localidade.cidade.cidade}" />
+                    </p:column>
                     
                     <p:column headerText="Usuario">
                         <h:outputText value="#{localidade.usuario.nome}" />
@@ -72,9 +72,9 @@
                         <h:outputText value="bairro:" />
                         <p:inputText value="#{localidadeC.localidade.bairro}" />
                         <h:outputText value="Cidade:" />
-                        <p:selectOneMenu value="#{localidadeC.localidade.cidade}">
-                            <f:selectItems value="#{cidadeC.cidadeLista}" var="c" itemLabel="#{c.descricao}" itemValue="#{c.codigoCidade}" />                            
-                        </p:selectOneMenu>                        
+                        <p:selectOneMenu value="#{localidadeC.localidade.cidade}" >
+                            <f:selectItems  value="#{localidadeC.localidade.cidade}" var="c" itemLabel="#{c.cidade}" itemValue="#{c.idCidade}" />
+                        </p:selectOneMenu>
                         <h:outputText value="CEP:" />
                         <p:inputText value="#{localidadeC.localidade.cep}" />
 
@@ -102,9 +102,7 @@
                         <h:outputText value="Localidade:" />
                         <p:inputText value="#{localidadeC.localidade.nome}" />
                         <h:outputText value="Descrição:" />
-                        <p:inputText value="#{localidadeC.localidade.descricao}" />
-                        <h:outputText value="---- Cadastro de endereço ---" />
-                        <h:outputText value="" />
+                        <p:inputText value="#{localidadeC.localidade.descricao}" />                        
                         <h:outputText value="logradouro:" />
                         <p:inputText value="#{localidadeC.localidade.logradouro}" />
                         <h:outputText value="numero:" />
@@ -112,10 +110,9 @@
                         <h:outputText value="bairro:" />
                         <p:inputText value="#{localidadeC.localidade.bairro}" />
                         <h:outputText value="Cidade:" />
-                        <p:selectOneMenu value="#{localidadeC.localidade.cidade}">
-                            <f:selectItem itemLabel="São Luis - MA" itemValue="1" />
-                            <f:selectItem itemLabel="Outros" itemValue="2" />                            
-                        </p:selectOneMenu>                        
+                        <p:selectOneMenu value="#{localidadeC.localidade.cidade}" >
+                            <f:selectItems  value="#{cidadeC.cidadeLista}" var="c" itemLabel="#{c.cidade}" itemValue="#{c.idCidade}" />
+                        </p:selectOneMenu>
                         <h:outputText value="CEP:" />
                         <p:inputText value="#{localidadeC.localidade.cep}" />
                         <h:outputText value="Latitude"/>
@@ -182,12 +179,15 @@
             var lat = document.getElementById('form'+map.replace('map','')+':lat').value;
             var lng = document.getElementById('form'+map.replace('map','')+':lng').value;
 
-            currentMarker[map] = new google.maps.Marker({
-                position:new google.maps.LatLng(lat, lng)
-            });
+            if( !isNaN(lat) && !isNaN(lng) )
+            {
+                currentMarker[map] = new google.maps.Marker({
+                    position:new google.maps.LatLng(lat, lng)
+                });
 
-            PF(map).map.setCenter( new google.maps.LatLng(lat, lng) );
-            PF(map).addOverlay(currentMarker[map]);
+                PF(map).map.setCenter( new google.maps.LatLng(lat, lng) );
+                PF(map).addOverlay(currentMarker[map]);                
+            }
         }
 
         browserSupportFlag = false;
