@@ -1,5 +1,6 @@
 package model;
 
+import controller.BaseEntity;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -11,7 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Item implements Serializable {
+public class Item implements Serializable,BaseEntity {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -105,5 +106,20 @@ public class Item implements Serializable {
 
     public void setMarcacodigo(Marca marcacodigo) {
         this.marcacodigo = marcacodigo;
+    }
+    
+    
+    @Override
+    public int hashCode() { return getCodigoItem() * 8; }
+
+    @Override
+    public boolean equals(Object obj) {
+    
+        return (obj instanceof Item) && ((Item) obj).getCodigoItem().equals(this.getCodigoItem());
+    }
+
+    @Override
+    public Long getId() {
+        return new Long(codigoItem);
     }
 }

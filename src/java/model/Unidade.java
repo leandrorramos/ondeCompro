@@ -1,5 +1,6 @@
 package model;
 
+import controller.BaseEntity;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.CascadeType;
@@ -12,7 +13,7 @@ import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-public class Unidade implements Serializable {
+public class Unidade implements Serializable ,BaseEntity{
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,5 +59,19 @@ public class Unidade implements Serializable {
 
     public void setItemCollection(Collection<Item> itemCollection) {
         this.itemCollection = itemCollection;
+    }
+    
+    @Override
+    public Long getId() {
+        return new Long(codigoUnidade);
+    }
+    
+    @Override
+    public int hashCode() { return getDescricao().length() * 8; }
+
+    @Override
+    public boolean equals(Object obj) {
+    
+        return (obj instanceof Unidade) && ((Unidade) obj).getCodigoUnidade().equals(this.getCodigoUnidade());
     }
 }

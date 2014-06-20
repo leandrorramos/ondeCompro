@@ -36,6 +36,11 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
+            <from-outcome>preco</from-outcome>
+            <to-view-id>/preco/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>usuario</from-outcome>
             <to-view-id>/usuario/index.xhtml</to-view-id>
             <redirect />
@@ -51,4 +56,9 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
+    <converter>
+        <description>Converte Generico</description>
+        <converter-id>genericConverter</converter-id>
+        <converter-class>controller.GenericConverter</converter-class>
+    </converter>
 </faces-config>

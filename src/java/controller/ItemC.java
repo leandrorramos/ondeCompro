@@ -7,8 +7,9 @@
 package controller;
 
 import DAO.ItemDAO;
-import DAO.MarcaDAO;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import model.Item;
@@ -61,8 +62,12 @@ public class ItemC{
     }
   
     public void salvarItem(){
-        //this.localidade.setUsuario(UsuarioLogadoC.getInstance().getUsuario());
-        //this.item.setMarcacodigo(new MarcaDAO().findById(this.item.));
+        
+        try {
+            this.item.setUsuarioscodigo(UsuarioLogadoC.getInstance().getUsuario());
+        } catch (Exception ex) {
+            Logger.getLogger(LocalidadeC.class.getName()).log(Level.SEVERE, null, ex);
+        }
         new ItemDAO().save(item);
         itemLista = new ItemDAO().findAll();
         item = new Item();
