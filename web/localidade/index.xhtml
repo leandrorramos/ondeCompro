@@ -121,7 +121,7 @@
                         <p:inputText id="lng" value="#{localidadeC.localidade.longitude}" onblur="handleBlurInput('mapAlterar')"/>
 
                         <p:commandButton value="Pegar Coordenadas" onclick="geoLocation ( 'mapAlterar' )"/>
-                        <p:gmap id="gmapAlterar" center="#{localidadeC.localidade.latitude},#{localidadeC.localidade.longitude}" 
+                        <p:gmap id="gmapAlterar" center="#{localidadeC.localidade.latLng}" 
                                 zoom="15" type="ROADMAP" style="width:500px;height:300px" 
                                 onPointClick="handlePointClick(event, 'mapAlterar');" widgetVar="mapAlterar"/>
                     </p:panelGrid>
@@ -178,8 +178,9 @@
 
             var lat = document.getElementById('form'+map.replace('map','')+':lat').value;
             var lng = document.getElementById('form'+map.replace('map','')+':lng').value;
-
-            if( !isNaN(lat) && !isNaN(lng) )
+            
+            
+            if( !isNaN( parseFloat(lat)+parseFloat(lng) ) )
             {
                 currentMarker[map] = new google.maps.Marker({
                     position:new google.maps.LatLng(lat, lng)
