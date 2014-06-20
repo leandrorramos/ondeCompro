@@ -8,7 +8,7 @@
             <h:form id="formPrincipal">
                 <p:dataTable value="#{localidadeC.localidadeLista}"
                              id="tabelaLocalidade" 
-                             style="width:70%" 
+                             style="width:90%" 
                              var="localidade"
                              rows="5"
                              paginator="true"
@@ -21,6 +21,18 @@
                     <p:column headerText="Descricao">
                         <h:outputText value="#{localidade.descricao}" />
                     </p:column>
+                    <p:column headerText="Logradouro">
+                        <h:outputText value="#{localidade.logradouro}" />
+                    </p:column>
+                    <p:column headerText="Numero">
+                        <h:outputText value="#{localidade.numero}" />
+                    </p:column>
+                    <p:column headerText="Bairro">
+                        <h:outputText value="#{localidade.bairro}" />
+                    </p:column>
+                    <p:column headerText="Cidade">
+                        <h:outputText value="#{localidade.cidade.descricao}" />
+                    </p:column>                    
                     
                     <p:column headerText="Usuario">
                         <h:outputText value="#{localidade.usuario.nome}" />
@@ -53,7 +65,24 @@
                         <h:outputText value="Localidade:" />
                         <p:inputText value="#{localidadeC.localidade.nome}" />
                         <h:outputText value="Descricao:" />
-                        <p:inputText value="#{localidadeC.localidade.descricao}" />                        
+                        <p:inputText value="#{localidadeC.localidade.descricao}" />
+                        
+                        <h:outputText value="logradouro:" />
+                        <p:inputText value="#{localidadeC.localidade.logradouro}" />
+                        <h:outputText value="numero:" />
+                        <p:inputText value="#{localidadeC.localidade.numero}" />
+                        <h:outputText value="bairro:" />
+                        <p:inputText value="#{localidadeC.localidade.bairro}" />
+                        <h:outputText value="Cidade:" />
+                        <p:selectOneMenu value="#{localidadeC.localidade.cidade}">
+                            <f:selectItems value="#{cidadeC.cidadeLista}" var="c" itemLabel="#{c.descricao}" itemValue="#{c.codigoCidade}" />                            
+                        </p:selectOneMenu>                        
+                        <h:outputText value="CEP:" />
+                        <p:inputText value="#{localidadeC.localidade.cep}" />
+                        <h:outputText value="Longitude:" />
+                        <p:inputText value="#{localidadeC.localidade.longitude}" />
+                        <h:outputText value="Latitude:" />
+                        <p:inputText value="#{localidadeC.localidade.latitude}" />
                     </p:panelGrid>
                     <p:commandButton value="Cadastrar"
                                      actionListener="#{localidadeC.salvarLocalidade}"
@@ -70,6 +99,24 @@
                         <p:inputText value="#{localidadeC.localidade.nome}" />
                         <h:outputText value="Descrição:" />
                         <p:inputText value="#{localidadeC.localidade.descricao}" />
+                        <h:outputText value="---- Cadastro de endereço ---" />
+                        <h:outputText value="logradouro:" />
+                        <p:inputText value="#{localidadeC.localidade.logradouro}" />
+                        <h:outputText value="numero:" />
+                        <p:inputText value="#{localidadeC.localidade.numero}" />
+                        <h:outputText value="bairro:" />
+                        <p:inputText value="#{localidadeC.localidade.bairro}" />
+                        <h:outputText value="Cidade:" />
+                        <p:selectOneMenu value="#{localidadeC.localidade.cidade}">
+                            <f:selectItem itemLabel="São Luis - MA" itemValue="1" />
+                            <f:selectItem itemLabel="Outros" itemValue="2" />                            
+                        </p:selectOneMenu>                        
+                        <h:outputText value="CEP:" />
+                        <p:inputText value="#{localidadeC.localidade.cep}" />
+                        <h:outputText value="Longitude:" />
+                        <p:inputText value="#{localidadeC.localidade.longitude}" />
+                        <h:outputText value="Latitude:" />
+                        <p:inputText value="#{localidadeC.localidade.latitude}" />
                     </p:panelGrid>
                     <p:commandButton value="Alterar"
                                      actionListener="#{localidadeC.atualizarLocalidade}"
