@@ -72,8 +72,8 @@
                         <h:outputText value="bairro:" />
                         <p:inputText value="#{localidadeC.localidade.bairro}" />
                         <h:outputText value="Cidade:" />
-                        <p:selectOneMenu value="#{localidadeC.localidade.cidade}" >
-                            <f:selectItems  value="#{localidadeC.localidade.cidade}" var="c" itemLabel="#{c.cidade}" itemValue="#{c.idCidade}" />
+                        <p:selectOneMenu value="#{localidadeC.localidade.cidade}"  converter="genericConverter">
+                            <f:selectItems  value="#{cidadeC.cidadeLista}" var="c" itemLabel="#{c.cidade}" itemValue="#{c}" />
                         </p:selectOneMenu>
                         <h:outputText value="CEP:" />
                         <p:inputText value="#{localidadeC.localidade.cep}" />
@@ -110,8 +110,8 @@
                         <h:outputText value="bairro:" />
                         <p:inputText value="#{localidadeC.localidade.bairro}" />
                         <h:outputText value="Cidade:" />
-                        <p:selectOneMenu value="#{localidadeC.localidade.cidade}" >
-                            <f:selectItems  value="#{cidadeC.cidadeLista}" var="c" itemLabel="#{c.cidade}" itemValue="#{c.idCidade}" />
+                        <p:selectOneMenu value="#{localidadeC.localidade.cidade}"  converter="genericConverter">
+                            <f:selectItems  value="#{cidadeC.cidadeLista}" var="c" itemLabel="#{c.cidade}" itemValue="#{c}" />
                         </p:selectOneMenu>
                         <h:outputText value="CEP:" />
                         <p:inputText value="#{localidadeC.localidade.cep}" />
