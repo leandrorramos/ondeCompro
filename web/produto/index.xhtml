@@ -50,6 +50,10 @@
                         <p:inputText value="#{produtoC.produto.nome}" />
                         <h:outputText value="Descrição:" />
                         <p:inputText value="#{produtoC.produto.descricao}" />
+                        <h:outputLabel value="Foto" />
+                        <p:photoCam widgetVar="pc" listener="#{produtoC.capturarImagem}" update=":formCadastrar:photo"/>  
+                        <p:commandButton type="button" value="Capture" onclick="PF('pc').capture()"/>  
+                        <p:graphicImage id="photo" value="#{optionC.baseUrl}/resources/img/#{produtoC.produto.imagem}" />  
                     </p:panelGrid>
                     <p:commandButton value="Cadastrar"
                                      actionListener="#{produtoC.salvarProduto}"
@@ -66,6 +70,10 @@
                         <p:inputText value="#{produtoC.produto.nome}" />
                         <h:outputText value="Descrição:" />
                         <p:inputText value="#{produtoC.produto.descricao}" />
+                        <p:photoCam widgetVar="pc" listener="#{produtoC.capturarImagem}" update="photos"/>  
+                        <p:graphicImage id="photos" value="../resources/img/#{produtoC.produto.imagem}" />
+                        <p:commandButton type="button" value="Foto" onclick="pc.capture()"/>  
+                        <h:outputText value="#{produtoC.produto.imagem}" />
                     </p:panelGrid>
                     <p:commandButton value="Alterar"
                                      actionListener="#{produtoC.alterarProduto}"
