@@ -21,11 +21,6 @@
                     <p:column headerText="Descricao">
                         <h:outputText value="#{localidade.descricao}" />
                     </p:column>
-                    
-                    <p:column headerText="Usuario">
-                        <h:outputText value="#{localidade.usuario.nome}" />
-                    </p:column>
-
                     <p:column headerText="Ações" style="width: 40%; text-align: center">                     
                         <p:commandButton title="Alterar" update=":Alterar"
                                          oncomplete="dialogAlterar.show()" immediate="true" value="Alterar">
