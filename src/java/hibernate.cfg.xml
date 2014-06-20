@@ -21,5 +21,6 @@
     <mapping class="model.Usuario"/>
     <mapping class="model.Comentario"/>
     <mapping class="model.Empresa"/>
+    <mapping class="model.Preco"/>
   </session-factory>
 </hibernate-configuration>

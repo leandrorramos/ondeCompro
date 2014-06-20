@@ -1,5 +1,7 @@
 package model;
 
+import com.sun.xml.ws.org.objectweb.asm.Type;
+import controller.BaseEntity;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -15,7 +17,7 @@ import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-public class Usuario implements Serializable {
+public class Usuario implements Serializable{
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

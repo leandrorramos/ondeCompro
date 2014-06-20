@@ -82,10 +82,11 @@
                         <p:inputText id="lat" value="#{localidadeC.localidade.latitude}" />
                         <h:outputText value="Longitude" />
                         <p:inputText id="lng" value="#{localidadeC.localidade.longitude}" />
-                        <p:commandButton value="Pegar Coordenadas" onclick="geoLocation ( map )"/>
+                        <p:commandButton value="Pegar Coordenadas" onclick="geoLocation ( 'mapCadastrar' );"/>
                         
-                        <p:gmap id="gmap" center="-15.565986,-54.309782" zoom="15" type="ROADMAP" style="width:500px;height:300px" onPointClick="handlePointClick(event);" widgetVar="map"/>
-
+                        <p:gmap id="gmapCadastrar" center="-15.565986,-54.309782" zoom="15" type="ROADMAP" 
+                                style="width:500px;height:300px" onPointClick="handlePointClick(event,'mapCadastrar');" 
+                                widgetVar="mapCadastrar"/>
                     </p:panelGrid>
                     <p:commandButton value="Cadastrar"
                                      actionListener="#{localidadeC.salvarLocalidade}"
@@ -116,10 +117,15 @@
                         </p:selectOneMenu>                        
                         <h:outputText value="CEP:" />
                         <p:inputText value="#{localidadeC.localidade.cep}" />
-                        <h:outputText value="Longitude:" />
-                        <p:inputText value="#{localidadeC.localidade.longitude}" />
-                        <h:outputText value="Latitude:" />
-                        <p:inputText value="#{localidadeC.localidade.latitude}" />
+                        <h:outputText value="Latitude"/>
+                        <p:inputText id="lat" value="#{localidadeC.localidade.latitude}" />
+                        <h:outputText value="Longitude" />
+                        <p:inputText id="lng" value="#{localidadeC.localidade.longitude}" />
+
+                        <p:commandButton value="Pegar Coordenadas" onclick="geoLocation ( 'mapAlterar' )"/>
+                        <p:gmap id="gmapAlterar" center="#{localidadeC.localidade.latitude},#{localidadeC.localidade.longitude}" 
+                                zoom="15" type="ROADMAP" style="width:500px;height:300px" 
+                                onPointClick="handlePointClick(event, 'mapAlterar');" widgetVar="mapAlterar"/>
                     </p:panelGrid>
                     <p:commandButton value="Alterar"
                                      actionListener="#{localidadeC.atualizarLocalidade}"
@@ -148,34 +154,24 @@
         var userLocationLoaded = false;
         var userLocation = null; 
 
-        var currentMarker = null;
+        var currentMarker = { 'mapAlterar':null,'mapCadastrar':null };
         
-        function handlePointClick(event) {
-            
-            if( currentMarker!==null )
+        function handlePointClick(event, map) {
+            if( !(currentMarker[map]===null) )
             {
-                currentMarker.setMap(null);
+                currentMarker[map].setMap(null);
             }
 
-            document.getElementById('formCadastrar:lat').value = event.latLng.lat();
-            document.getElementById('formCadastrar:lng').value = event.latLng.lng();
+            document.getElementById('form'+map.replace('map','')+':lat').value = event.latLng.lat();
+            document.getElementById('form'+map.replace('map','')+':lng').value = event.latLng.lng();
 
-            currentMarker = new google.maps.Marker({
+            currentMarker[map] = new google.maps.Marker({
                 position:new google.maps.LatLng(event.latLng.lat(), event.latLng.lng())
             });
 
-            PF('map').addOverlay(currentMarker);
+            PF(map).addOverlay(currentMarker[map]);
         }
 
-        function markerAddComplete() {
-            var title = document.getElementById('title');
-            currentMarker.setTitle(title.value);
-            title.value = "";
-
-            currentMarker = null;
-            PF('dlg').hide();
-        }
-        
         browserSupportFlag = false;
         // Get location user
         function geoLocation ( map, callback ) {
@@ -187,19 +183,43 @@
                     navigator.geolocation.getCurrentPosition( function(position) {
                         var coords = [ position.coords.latitude,position.coords.longitude ];
 
-                        currentMarker.setMap(null);
+                        if( !(currentMarker[map]===null) )
+                        {
+                            currentMarker[map].setMap(null);
+                        }
+                        
                         userLocation = new google.maps.LatLng( coords[0], coords[1] );
-                        PF('map').map.setCenter( userLocation );
-
-                        currentMarker =  new google.maps.Marker({
+                        PF(map).map.setCenter( userLocation );
+                        
+                        document.getElementById('form'+map.replace('map','')+':lat').value =  coords[0];
+                        document.getElementById('form'+map.replace('map','')+':lng').value =  coords[1];                        
+                        currentMarker[map] =  new google.maps.Marker({
                             position: userLocation
                         });
 
                         // setMarker( map, coords[0]+0.22578, coords[1]+0.22578 , 'Your Location' ,'pin-me');
                         userLocationLoaded = true;
 
-                        PF('map').addOverlay(currentMarker);
+                        PF(map).addOverlay(currentMarker[map]);
                     });
+                }
+                else{
+                    if( !(currentMarker[map]===null) )
+                    {
+                        currentMarker[map].setMap(null);
+                    }      
+                    
+                    PF(map).map.setCenter( userLocation );
+                    
+                    document.getElementById('form'+map.replace('map','')+':lat').value =  userLocation.lat();
+                    document.getElementById('form'+map.replace('map','')+':lng').value =  userLocation.lng();  
+                    
+                    currentMarker[map] =  new google.maps.Marker({
+                        position: userLocation
+                    });
+
+                    // setMarker( map, coords[0]+0.22578, coords[1]+0.22578 , 'Your Location' ,'pin-me');
+                    PF(map).addOverlay(currentMarker[map]);                    
                 }
             }
             // Browser doesn't support Geolocation

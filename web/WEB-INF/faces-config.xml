@@ -36,8 +36,13 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
+<<<<<<< HEAD
             <from-outcome>comentario</from-outcome>
             <to-view-id>/comentario/index.xhtml</to-view-id>
+=======
+            <from-outcome>preco</from-outcome>
+            <to-view-id>/preco/index.xhtml</to-view-id>
+>>>>>>> 401badf398a63d323fa814a8db87bf1198238250
             <redirect/>
         </navigation-case>
         <navigation-case>
@@ -56,4 +61,9 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
+    <converter>
+        <description>Converte Generico</description>
+        <converter-id>genericConverter</converter-id>
+        <converter-class>controller.GenericConverter</converter-class>
+    </converter>
 </faces-config>

@@ -1,0 +1,116 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:decorate template="../template/newTemplate.xhtml">
+        <ui:define name="centro">
+            <h:form id="formPrincipal">
+                <p:dataTable value="#{precoC.precoLista}"
+                             id="tabelaPreco" 
+                             style="width:70%" 
+                             var="preco"
+                             rows="5"
+                             paginator="true"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10">
+                    <f:facet name="header">Lista de Preços Cadastrados</f:facet>
+                    <p:column headerText="Localidade">
+                        <h:outputText value="#{preco.localidade.nome}" />
+                    </p:column>
+                    <p:column headerText="Preço">
+                        <h:outputText value="#{preco.item.codigoItem}" />
+                    </p:column>
+                    <p:column headerText="Promoção">
+                        <h:outputText value="#{preco.promocao}" />
+                    </p:column>
+                    <p:column headerText="Valor">
+                        <h:outputText value="#{preco.valor}" />
+                    </p:column>
+                    <p:column headerText="Ações" style="width: 40%; text-align: center">                     
+                        <p:commandButton title="Alterar" update=":Alterar"
+                                         oncomplete="dialogAlterar.show()" immediate="true" value="Alterar">
+                            <f:setPropertyActionListener value="#{preco}"
+                                                         target="#{precoC.preco}" />
+                            
+
+                        </p:commandButton>
+                        <p:commandButton title="Excluir" update=":Excluir"
+                                         oncomplete="confirmation.show()" immediate="true" value="Excluir">
+                            <f:setPropertyActionListener value="#{preco}"
+                                                         target="#{precoC.preco}" />
+                            
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+                <br />
+                <p:commandButton value="Cadastrar" id="cadastrar"
+                                 oncomplete="dialogCadastrar.show()"/>
+            </h:form>
+        
+            <p:dialog header="Cadastrar" widgetVar="dialogCadastrar" modal="true" appendTo="@(body)">
+                <h:form id="formCadastrar">
+                    <p:growl id="growl" showDetail="true" life="1500"/>
+                    <p:panelGrid id="panelCadastrar" columns="2">
+                        <h:outputText value="Localidade:" />
+                        <p:selectOneMenu value="#{precoC.preco.localidade}" converter="genericConverter">
+                            <f:selectItems  value="#{localidadeC.localidadeLista}" var="l" itemLabel="#{l.descricao}" itemValue="#{l}" />
+                        </p:selectOneMenu>
+                        <h:outputText value="Item:" />
+                        <p:selectOneMenu value="#{precoC.preco.item}" converter="genericConverter">
+                            <f:selectItems  value="#{itemC.itemLista}" var="i" itemLabel="#{i.codigoItem}" itemValue="#{i}" />
+                        </p:selectOneMenu>
+                        <h:outputText value="Promoção:" />
+                        <p:inputText value="#{precoC.preco.promocao}" />
+                        <h:outputText value="Valor:" />
+                        <p:inputText value="#{precoC.preco.valor}" />
+                    </p:panelGrid>
+                    <p:commandButton value="Cadastrar"
+                                     
+                                     actionListener="#{precoC.salvarPreco}"
+                                     update=":formPrincipal:tabelaPreco growl"
+                                     oncomplete="dialogCadastrar.hide()" />
+                </h:form>
+            </p:dialog>
+            
+            <p:dialog header="Alterar" widgetVar="dialogAlterar" modal="true" id="Alterar" appendTo="@(body)">
+                <h:form id="formAlterar">
+                    <p:growl id="growl" showDetail="true" life="1500"/>
+                    <p:panelGrid id="panelAlterar" columns="2">
+                        
+                        <h:outputText value="Localidade:" />
+                        <p:selectOneMenu value="#{precoC.preco.localidade}" converter="genericConverter">
+                            <f:selectItems  value="#{localidadeC.localidadeLista}" var="l" itemLabel="#{l.descricao}" itemValue="#{l}" />
+                        </p:selectOneMenu>
+                        <h:outputText value="Item:" />
+                        <p:selectOneMenu value="#{precoC.preco.item}" converter="genericConverter">
+                            <f:selectItems  value="#{itemC.itemLista}" var="i" itemLabel="#{i.codigoItem}" itemValue="#{i}" />
+                        </p:selectOneMenu>
+                        <h:outputText value="Promoção:" />
+                        <p:inputText value="#{precoC.preco.promocao}" />
+                        <h:outputText value="Valor:" />
+                        <p:inputText value="#{precoC.preco.valor}" />
+                    </p:panelGrid>
+                    <p:commandButton value="Alterar"
+                                     actionListener="#{precoC.alterarPreco}"
+                                     update=":formPrincipal:tabelaPreco growl" />
+
+                </h:form>
+            </p:dialog>
+
+            <p:confirmDialog id="Excluir"
+                             message="Você gostaria de Deletar o #{precoC.preco.codigoPreco}?"
+                             header="Excluir" severity="alert" appendTo="@(body)" widgetVar="confirmation">
+                <h:form id="formExcluir">
+                    <p:growl id="growl" showDetail="true" life="1500"/>
+                    <p:commandButton id="confirm" value="Sim"
+                                     oncomplete="confirmation.hide()"
+                                     actionListener="#{precoC.excluirPreco}"
+                                     update=":formPrincipal:tabelaPreco growl" />
+                    <p:commandButton id="decline" value="Não"
+                                     onclick="confirmation.hide()" type="button" />
+                </h:form>
+            </p:confirmDialog>
+        </ui:define>
+    </ui:decorate>
+</html>
