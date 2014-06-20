@@ -7,7 +7,7 @@
 package controller;
 
 import DAO.ItemDAO;
-import java.io.Serializable;
+import DAO.MarcaDAO;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -61,6 +61,8 @@ public class ItemC{
     }
   
     public void salvarItem(){
+        //this.localidade.setUsuario(UsuarioLogadoC.getInstance().getUsuario());
+        //this.item.setMarcacodigo(new MarcaDAO().findById(this.item.));
         new ItemDAO().save(item);
         itemLista = new ItemDAO().findAll();
         item = new Item();

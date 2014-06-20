@@ -16,22 +16,22 @@
                              rowsPerPageTemplate="5,10">
                     <f:facet name="header">Lista de Itens Cadastrados</f:facet>
                     <p:column headerText="Produto">
-                        <h:outputText value="#{itemC.item.produtocodigo.nome}" />
+                        <h:outputText value="#{item.produtocodigo.nome}" />
                     </p:column>
                     <p:column headerText="Usuário">
-                        <h:outputText value="#{itemC.item.usuarioscodigo.nome}" />
+                        <h:outputText value="#{item.usuarioscodigo.nome}" />
                     </p:column>
                     <p:column headerText="Marca">
-                        <h:outputText value="#{itemC.item.marcacodigo.descricao}" />
+                        <h:outputText value="#{item.marcacodigo.descricao}" />
                     </p:column>
                     <p:column headerText="Categoria">
-                        <h:outputText value="#{itemC.item.categoriacodigo.descricao}" />
+                        <h:outputText value="#{item.categoriacodigo.descricao}" />
                     </p:column>
                     <p:column headerText="Unidade">
-                        <h:outputText value="#{itemC.item.unidadecodigo.descricao}" />
+                        <h:outputText value="#{item.unidadecodigo.descricao}" />
                     </p:column>
                      <p:column headerText="Quantidade">
-                         <h:outputText value="#{itemC.item.quantidade}" />
+                         <h:outputText value="#{item.quantidade}" />
                     </p:column>
                     <p:column headerText="Ações" style="width: 40%; text-align: center">                     
                         <p:commandButton title="Alterar" update=":Alterar"
@@ -59,18 +59,25 @@
                     <p:growl id="growl" showDetail="true" life="1500"/>
                     <p:panelGrid id="panelCadastrar" columns="2">
                         <h:outputText value="Marca:" />
-                        <p:selectOneMenu value="#{itemC.itemLista}" >
+                        <p:selectOneMenu value="#{itemC.item.marcacodigo}" >
                             <f:selectItems  value="#{marcaC.marcaLista}" var="m" itemLabel="#{m.descricao}" itemValue="#{m.codigoMarca}" />
                         </p:selectOneMenu>
-                        <p:inputText value="#{itemC.item.marcacodigo}" />
                         <h:outputText value="Categoria:" />
-                        <p:inputText value="#{itemC.item.categoriacodigo}" />
+                        <p:selectOneMenu value="#{itemC.item.categoriacodigo}" >
+                            <f:selectItems  value="#{categoriaC.categoriaLista}" var="c" itemLabel="#{c.descricao}" itemValue="#{c.codigoCategoria}" />
+                        </p:selectOneMenu>
                         <h:outputText value="Unidade:" />
-                        <p:inputText value="#{itemC.item.unidadecodigo}" />
+                        <p:selectOneMenu value="#{itemC.item.unidadecodigo}" >
+                            <f:selectItems  value="#{unidadeC.unidadeLista}" var="u" itemLabel="#{u.descricao}" itemValue="#{u.codigoUnidade}" />
+                        </p:selectOneMenu>
                         <h:outputText value="Usuário:" />
-                        <p:inputText value="#{itemC.item.usuarioscodigo}" />
+                        <p:selectOneMenu value="##{itemC.item.usuarioscodigo}" >
+                            <f:selectItems  value="#{usuarioC.usuarioLista}" var="usr" itemLabel="#{usr.nome}" itemValue="#{usr.codigoUsuario}" />
+                        </p:selectOneMenu>
                         <h:outputText value="Produto:" />
-                        <p:inputText value="#{itemC.item.produtocodigo}" />
+                        <p:selectOneMenu value="##{itemC.item.produtocodigo}" >
+                            <f:selectItems  value="#{produtoC.produtoLista}" var="p" itemLabel="#{p.descricao}" itemValue="#{p.codigoProduto}" />
+                        </p:selectOneMenu>
                         <h:outputText value="Quantidade:" />
                         <p:inputText value="#{itemC.item.quantidade}" />
                     </p:panelGrid>
@@ -85,16 +92,30 @@
                 <h:form id="formAlterar">
                     <p:growl id="growl" showDetail="true" life="1500"/>
                     <p:panelGrid id="panelAlterar" columns="2">
-                        <h:outputText value="Código Marca:" />
-                        <p:inputText value="#{itemC.item.marcacodigo}" />
-                        <h:outputText value="Código Categoria:" />
-                        <p:inputText value="#{itemC.item.categoriacodigo}" />
-                        <h:outputText value="Código Unidade:" />
-                        <p:inputText value="#{itemC.item.unidadecodigo}" />
-                        <h:outputText value="Código Usuário:" />
-                        <p:inputText value="#{itemC.item.usuarioscodigo}" />
-                        <h:outputText value="Código Produto:" />
-                        <p:inputText value="#{itemC.item.produtocodigo}" />
+                        <h:outputText value="Marca:" />
+                        <p:selectOneMenu value="#{itemC.itemLista}" >
+                            <f:selectItems  value="#{marcaC.marcaLista}" var="m" itemLabel="#{m.descricao}" itemValue="#{m.codigoMarca}" />
+                        </p:selectOneMenu>
+                        <h:outputText value="Categoria:" />
+                        <p:selectOneMenu value="#{itemC.itemLista}" >
+                            <f:selectItems  value="#{marcaC.marcaLista}" var="m" itemLabel="#{m.descricao}" itemValue="#{m.codigoMarca}" />
+                        </p:selectOneMenu>
+                        <p:inputText value="#{itemC.item.categoriacodigo.descricao}" />
+                        <h:outputText value="Unidade:" />
+                        <p:selectOneMenu value="#{itemC.itemLista}" >
+                            <f:selectItems  value="#{marcaC.marcaLista}" var="m" itemLabel="#{m.descricao}" itemValue="#{m.codigoMarca}" />
+                        </p:selectOneMenu>
+                        <p:inputText value="#{itemC.item.unidadecodigo.descricao}" />
+                        
+                        <p:selectOneMenu value="#{itemC.itemLista}" >
+                            <f:selectItems  value="#{marcaC.marcaLista}" var="m" itemLabel="#{m.descricao}" itemValue="#{m.codigoMarca}" />
+                        </p:selectOneMenu>
+                        <p:inputText value="#{itemC.item.usuarioscodigo.nome}" />
+                        
+                        <p:selectOneMenu value="#{itemC.itemLista}" >
+                            <f:selectItems  value="#{marcaC.marcaLista}" var="m" itemLabel="#{m.descricao}" itemValue="#{m.codigoMarca}" />
+                        </p:selectOneMenu>
+                        <p:inputText value="#{itemC.item.produtocodigo.nome}" />
                         <h:outputText value="Quantidade:" />
                         <p:inputText value="#{itemC.item.quantidade}" />
                     </p:panelGrid>
