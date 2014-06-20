@@ -16,7 +16,8 @@
     <mapping class="model.Marca"/>
     <mapping class="model.Produto"/>
     <mapping class="model.Unidade"/>
-    <mapping class="model.Localidade"/>
+    <mapping class="model.Cidade"/>
+    <mapping class="model.Localidade"/>    
     <mapping class="model.Usuario"/>
     <mapping class="model.Comentario"/>
     <mapping class="model.Empresa"/>

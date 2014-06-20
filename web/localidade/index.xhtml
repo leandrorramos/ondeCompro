@@ -8,7 +8,7 @@
             <h:form id="formPrincipal">
                 <p:dataTable value="#{localidadeC.localidadeLista}"
                              id="tabelaLocalidade" 
-                             style="width:70%" 
+                             style="width:90%" 
                              var="localidade"
                              rows="5"
                              paginator="true"
@@ -21,11 +21,22 @@
                     <p:column headerText="Descricao">
                         <h:outputText value="#{localidade.descricao}" />
                     </p:column>
+                    <p:column headerText="Logradouro">
+                        <h:outputText value="#{localidade.logradouro}" />
+                    </p:column>
+                    <p:column headerText="Numero">
+                        <h:outputText value="#{localidade.numero}" />
+                    </p:column>
+                    <p:column headerText="Bairro">
+                        <h:outputText value="#{localidade.bairro}" />
+                    </p:column>
+                    <p:column headerText="Cidade">
+                        <h:outputText value="#{localidade.cidade.descricao}" />
+                    </p:column>                    
                     
                     <p:column headerText="Usuario">
                         <h:outputText value="#{localidade.usuario.nome}" />
                     </p:column>
-
                     <p:column headerText="Ações" style="width: 40%; text-align: center">                     
                         <p:commandButton title="Alterar" update=":Alterar"
                                          oncomplete="dialogAlterar.show()" immediate="true" value="Alterar">
@@ -53,14 +64,28 @@
                         <h:outputText value="Localidade:" />
                         <p:inputText value="#{localidadeC.localidade.nome}" />
                         <h:outputText value="Descricao:" />
-                        <p:inputText value="#{localidadeC.localidade.descricao}" />
+                        <p:inputText value="#{localidadeC.localidade.descricao}" />                        
+                        <h:outputText value="logradouro:" />
+                        <p:inputText value="#{localidadeC.localidade.logradouro}" />
+                        <h:outputText value="numero:" />
+                        <p:inputText value="#{localidadeC.localidade.numero}" />
+                        <h:outputText value="bairro:" />
+                        <p:inputText value="#{localidadeC.localidade.bairro}" />
+                        <h:outputText value="Cidade:" />
+                        <p:selectOneMenu value="#{localidadeC.localidade.cidade}">
+                            <f:selectItems value="#{cidadeC.cidadeLista}" var="c" itemLabel="#{c.descricao}" itemValue="#{c.codigoCidade}" />                            
+                        </p:selectOneMenu>                        
+                        <h:outputText value="CEP:" />
+                        <p:inputText value="#{localidadeC.localidade.cep}" />
+
                         <h:outputText value="Latitude"/>
                         <p:inputText id="lat" value="#{localidadeC.localidade.latitude}" />
                         <h:outputText value="Longitude" />
                         <p:inputText id="lng" value="#{localidadeC.localidade.longitude}" />
-                        <p:commandButton value="Pegar Coordenadas"/>
+                        <p:commandButton value="Pegar Coordenadas" onclick="geoLocation ( map )"/>
                         
                         <p:gmap id="gmap" center="-15.565986,-54.309782" zoom="15" type="ROADMAP" style="width:500px;height:300px" onPointClick="handlePointClick(event);" widgetVar="map"/>
+
                     </p:panelGrid>
                     <p:commandButton value="Cadastrar"
                                      actionListener="#{localidadeC.salvarLocalidade}"
@@ -77,6 +102,24 @@
                         <p:inputText value="#{localidadeC.localidade.nome}" />
                         <h:outputText value="Descrição:" />
                         <p:inputText value="#{localidadeC.localidade.descricao}" />
+                        <h:outputText value="---- Cadastro de endereço ---" />
+                        <h:outputText value="logradouro:" />
+                        <p:inputText value="#{localidadeC.localidade.logradouro}" />
+                        <h:outputText value="numero:" />
+                        <p:inputText value="#{localidadeC.localidade.numero}" />
+                        <h:outputText value="bairro:" />
+                        <p:inputText value="#{localidadeC.localidade.bairro}" />
+                        <h:outputText value="Cidade:" />
+                        <p:selectOneMenu value="#{localidadeC.localidade.cidade}">
+                            <f:selectItem itemLabel="São Luis - MA" itemValue="1" />
+                            <f:selectItem itemLabel="Outros" itemValue="2" />                            
+                        </p:selectOneMenu>                        
+                        <h:outputText value="CEP:" />
+                        <p:inputText value="#{localidadeC.localidade.cep}" />
+                        <h:outputText value="Longitude:" />
+                        <p:inputText value="#{localidadeC.localidade.longitude}" />
+                        <h:outputText value="Latitude:" />
+                        <p:inputText value="#{localidadeC.localidade.latitude}" />
                     </p:panelGrid>
                     <p:commandButton value="Alterar"
                                      actionListener="#{localidadeC.atualizarLocalidade}"
@@ -102,15 +145,18 @@
         </ui:define>
     </ui:decorate>
     <script type="text/javascript">
-        var currentMarker = new google.maps.Marker({
-            position:new google.maps.LatLng( -15.565986, -54.309782 )
-        });
-        
-        PF('map').addOverlay(currentMarker);
+        var userLocationLoaded = false;
+        var userLocation = null; 
 
+        var currentMarker = null;
+        
         function handlePointClick(event) {
-            currentMarker.setMap(null);
             
+            if( currentMarker!==null )
+            {
+                currentMarker.setMap(null);
+            }
+
             document.getElementById('formCadastrar:lat').value = event.latLng.lat();
             document.getElementById('formCadastrar:lng').value = event.latLng.lng();
 
@@ -129,5 +175,40 @@
             currentMarker = null;
             PF('dlg').hide();
         }
+        
+        browserSupportFlag = false;
+        // Get location user
+        function geoLocation ( map, callback ) {
+            // Once browser support is confirmed, check only the confirmation
+            if( browserSupportFlag || navigator.geolocation ) {
+                browserSupportFlag = true;
+                // If the user is not loaded yet
+                if( !userLocationLoaded ){
+                    navigator.geolocation.getCurrentPosition( function(position) {
+                        var coords = [ position.coords.latitude,position.coords.longitude ];
+
+                        currentMarker.setMap(null);
+                        userLocation = new google.maps.LatLng( coords[0], coords[1] );
+                        PF('map').map.setCenter( userLocation );
+
+                        currentMarker =  new google.maps.Marker({
+                            position: userLocation
+                        });
+
+                        // setMarker( map, coords[0]+0.22578, coords[1]+0.22578 , 'Your Location' ,'pin-me');
+                        userLocationLoaded = true;
+
+                        PF('map').addOverlay(currentMarker);
+                    });
+                }
+            }
+            // Browser doesn't support Geolocation
+            else {
+                browserSupportFlag = false;
+                // Show erro
+                if( callback )
+                    handleNoGeolocation( browserSupportFlag );
+            }
+        } 
     </script>
 </html>

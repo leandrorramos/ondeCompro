@@ -61,6 +61,7 @@ public class ItemC{
     }
   
     public void salvarItem(){
+        //this.item.getMarcacodigo().getCodigoMarca();
         //this.localidade.setUsuario(UsuarioLogadoC.getInstance().getUsuario());
         //this.item.setMarcacodigo(new MarcaDAO().findById(this.item.));
         new ItemDAO().save(item);

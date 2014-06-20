@@ -29,8 +29,8 @@
 <!--                    <p:column headerText="Ações" style="width: 40%; text-align: center">                     
                         <p:commandButton title="Alterar" update=":Alterar"
                                          oncomplete="dialogAlterar.show()" immediate="true" value="Alterar">
-                            <f:setPropertyActionListener value="#{comentario}"
-                                                         target="#{comentarioC.comentario}" />
+                            <f:setPropertyActionListener value=""
+                                                         target="" />
                             
                         </p:commandButton>
                         
@@ -64,12 +64,12 @@
                     <p:growl id="growl" showDetail="true" life="1500"/>
                     <p:panelGrid id="panelAlterar" columns="2">
                         <h:outputText value="Localidade:" />
-                        <p:inputText value="#{localidadeC.localidade.nome}" />
+                        <p:inputText value="" />
                         <h:outputText value="Descrição:" />
-                        <p:inputText value="#{localidadeC.localidade.descricao}" />
+                        <p:inputText value="" />
                     </p:panelGrid>
                     <p:commandButton value="Alterar"
-                                     actionListener="#{localidadeC.atualizarLocalidade}"
+                                     actionListener=""
                                      update=":formPrincipal:tabelaLocalidade growl"
                                      oncomplete="dialogAlterar.hide()" />
 
@@ -77,13 +77,13 @@
             </p:dialog>-->
 
 <!--            <p:confirmDialog id="Excluir"
-                             message="Você gostaria de Deletar o #{localidadeC.localidade.nome}?"
+                             message="Você gostaria de Deletar o ?"
                              header="Excluir" severity="alert" appendTo="@(body)" widgetVar="confirmation">
                 <h:form id="formExcluir">
                     <p:growl id="growl" showDetail="true" life="1500"/>
                     <p:commandButton id="confirm" value="Sim"
                                      oncomplete="confirmation.hide()"
-                                     actionListener="#{localidadeC.deleteLocalidade}"
+                                     actionListener=""
                                      update=":formPrincipal:tabelaLocalidade growl" />
                     <p:commandButton id="decline" value="Não"
                                      onclick="confirmation.hide()" type="button" />
