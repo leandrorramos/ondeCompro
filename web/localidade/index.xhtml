@@ -53,7 +53,14 @@
                         <h:outputText value="Localidade:" />
                         <p:inputText value="#{localidadeC.localidade.nome}" />
                         <h:outputText value="Descricao:" />
-                        <p:inputText value="#{localidadeC.localidade.descricao}" />                        
+                        <p:inputText value="#{localidadeC.localidade.descricao}" />
+                        <h:outputText value="Latitude"/>
+                        <p:inputText id="lat" value="#{localidadeC.localidade.latitude}" />
+                        <h:outputText value="Longitude" />
+                        <p:inputText id="lng" value="#{localidadeC.localidade.longitude}" />
+                        <p:commandButton value="Pegar Coordenadas"/>
+                        
+                        <p:gmap id="gmap" center="-15.565986,-54.309782" zoom="15" type="ROADMAP" style="width:500px;height:300px" onPointClick="handlePointClick(event);" widgetVar="map"/>
                     </p:panelGrid>
                     <p:commandButton value="Cadastrar"
                                      actionListener="#{localidadeC.salvarLocalidade}"
@@ -94,4 +101,33 @@
             </p:confirmDialog>
         </ui:define>
     </ui:decorate>
+    <script type="text/javascript">
+        var currentMarker = new google.maps.Marker({
+            position:new google.maps.LatLng( -15.565986, -54.309782 )
+        });
+        
+        PF('map').addOverlay(currentMarker);
+
+        function handlePointClick(event) {
+            currentMarker.setMap(null);
+            
+            document.getElementById('formCadastrar:lat').value = event.latLng.lat();
+            document.getElementById('formCadastrar:lng').value = event.latLng.lng();
+
+            currentMarker = new google.maps.Marker({
+                position:new google.maps.LatLng(event.latLng.lat(), event.latLng.lng())
+            });
+
+            PF('map').addOverlay(currentMarker);
+        }
+
+        function markerAddComplete() {
+            var title = document.getElementById('title');
+            currentMarker.setTitle(title.value);
+            title.value = "";
+
+            currentMarker = null;
+            PF('dlg').hide();
+        }
+    </script>
 </html>
