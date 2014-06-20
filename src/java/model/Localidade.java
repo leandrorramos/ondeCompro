@@ -140,4 +140,8 @@ public class Localidade implements Serializable ,BaseEntity{
     public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
+    
+    public String getLatLng() {
+        return latitude+','+longitude;
+    }
 }
