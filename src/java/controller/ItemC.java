@@ -61,8 +61,7 @@ public class ItemC{
         this.itemLista = itemLista;
     }
   
-    public void salvarItem(){
-        
+    public void salvarItem(){      
         try {
             this.item.setUsuarioscodigo(UsuarioLogadoC.getInstance().getUsuario());
         } catch (Exception ex) {

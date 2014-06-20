@@ -17,7 +17,7 @@ import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-public class Usuario implements Serializable ,BaseEntity{
+public class Usuario implements Serializable{
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +30,6 @@ public class Usuario implements Serializable ,BaseEntity{
     @Temporal(TemporalType.TIMESTAMP)
     private Date data;
     private String ativo;
-    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioscodigo")
     private Collection<Item> itemCollection;
 
@@ -113,18 +112,5 @@ public class Usuario implements Serializable ,BaseEntity{
 
     public void setItemCollection(Collection<Item> itemCollection) {
         this.itemCollection = itemCollection;
-    }
-    @Override
-    public Long getId() {
-        return new Long(codigoUsuario);
-    }
-    
-    @Override
-    public int hashCode() { return getNome().length() * 8; }
-
-    @Override
-    public boolean equals(Object obj) {
-    
-        return (obj instanceof Usuario) && ((Usuario) obj).getCodigoUsuario().equals(this.getCodigoUsuario());
     }
 }

@@ -2,8 +2,6 @@ package model;
 
 import controller.BaseEntity;
 import java.io.Serializable;
-import java.util.Collection;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,8 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 public class Localidade implements Serializable ,BaseEntity{
@@ -23,7 +19,17 @@ public class Localidade implements Serializable ,BaseEntity{
     private Integer codigoLocalidade;
     private String nome;
     private String descricao;
-    //private Integer usuariocodigo;
+    
+    private String logradouro;
+    private String numero;
+    private String bairro;
+    private String cep;        
+    private String latitude;
+    private String longitude;
+    
+    @JoinColumn(name = "id_cidade", referencedColumnName = "id_cidade")
+    @ManyToOne
+    private Cidade cidade;
         
     @JoinColumn(name = "Usuario_codigo", referencedColumnName = "codigo_usuario")
     @ManyToOne
@@ -68,6 +74,15 @@ public class Localidade implements Serializable ,BaseEntity{
         this.descricao = descricao;
     }
     
+    public Cidade getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(Cidade cidade) {
+        this.cidade = cidade;
+    }
+    
+    
     public Usuario getUsuario() {
         return usuario;
     }
@@ -75,18 +90,66 @@ public class Localidade implements Serializable ,BaseEntity{
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-
-    /*@XmlTransient    
-    public Collection<Item> getItemCollection() {
-        return itemCollection;
+       
+    public String getLogradouro() {
+        return logradouro;
     }
 
-    public void setItemCollection(Collection<Item> itemCollection) {
-        this.itemCollection = itemCollection;
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    /*public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }*/
+
 
     @Override
     public Long getId() {
         return new Long(codigoLocalidade);
+    }
+    
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 }
