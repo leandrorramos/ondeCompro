@@ -120,15 +120,6 @@ public class Localidade implements Serializable ,BaseEntity{
         this.cep = cep;
     }
 
-    /*public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }*/
-
-
     @Override
     public Long getId() {
         return new Long(codigoLocalidade);
@@ -148,5 +139,9 @@ public class Localidade implements Serializable ,BaseEntity{
 
     public void setLongitude(String longitude) {
         this.longitude = longitude;
+    }
+    
+    public String getLatLng() {
+        return latitude+','+longitude;
     }
 }

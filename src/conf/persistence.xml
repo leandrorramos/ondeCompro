@@ -8,8 +8,7 @@
     <class>model.Categoria</class>
     <class>model.Produto</class>
     <class>model.Usuario</class>
-    <class>model.Comentario</class>
-    <class>model.Empresa</class>
+    <class>model.Comentario</class>    
     <class>model.Preco</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
