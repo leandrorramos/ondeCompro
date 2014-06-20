@@ -1,0 +1,94 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:decorate template="../template/newTemplate.xhtml">
+        <ui:define name="centro">
+            <h:form id="formPrincipal">
+                <p:dataTable value="#{comentarioC.comentarioLista}"
+                             id="tabelaComentario" 
+                             style="width:70%" 
+                             var="comentario"
+                             rows="5"
+                             paginator="true"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10">
+                    <f:facet name="header">Lista de Comentario</f:facet>
+                    <p:column headerText="Descricao">
+                        <h:outputText value="#{comentario.descricao}" />
+                    </p:column>
+                    <p:column headerText="Data">
+                        <h:outputText value="#{comentario.data}" />
+                    </p:column>
+                    
+                    <p:column headerText="Qualificacao">
+                        <h:outputText value="#{comentario.qualificacao}" />
+                    </p:column>
+                    
+<!--                    <p:column headerText="Ações" style="width: 40%; text-align: center">                     
+                        <p:commandButton title="Alterar" update=":Alterar"
+                                         oncomplete="dialogAlterar.show()" immediate="true" value="Alterar">
+                            <f:setPropertyActionListener value=""
+                                                         target="" />
+                            
+                        </p:commandButton>
+                        
+                    </p:column>-->
+                </p:dataTable>
+                <br />
+                <p:commandButton value="Cadastrar" id="cadastrar"
+                                 oncomplete="dialogCadastrar.show()"/>
+            </h:form>
+        
+            <p:dialog header="Cadastrar" widgetVar="dialogCadastrar" modal="true" appendTo="@(body)">
+                <h:form id="formCadastrar">
+                    <p:growl id="growl" showDetail="true" life="1500"/>
+                    <p:panelGrid id="panelCadastrar" columns="2">
+                        <h:outputText value="Descricao" />
+                        <p:inputText value="#{comentario.descricao}" />
+                        <h:outputText value="Data:" />
+                        <p:inputText value="#{comentario.data}" />                      
+                        <h:outputText value="Qualificacao:" />
+                        <p:inputText value="#{comentario.qualificacao}" />
+                    </p:panelGrid>
+                    <p:commandButton value="Cadastrar"
+                                     actionListener="#{comentarioC.salvarComentario}"
+                                     update=":formPrincipal:tabelaComentario growl"
+                                     oncomplete="dialogCadastrar.hide()" />
+                </h:form>
+            </p:dialog>
+            
+<!--            <p:dialog header="Alterar" widgetVar="dialogAlterar" modal="true" id="Alterar" appendTo="@(body)">
+                <h:form id="formAlterar">
+                    <p:growl id="growl" showDetail="true" life="1500"/>
+                    <p:panelGrid id="panelAlterar" columns="2">
+                        <h:outputText value="Localidade:" />
+                        <p:inputText value="" />
+                        <h:outputText value="Descrição:" />
+                        <p:inputText value="" />
+                    </p:panelGrid>
+                    <p:commandButton value="Alterar"
+                                     actionListener=""
+                                     update=":formPrincipal:tabelaLocalidade growl"
+                                     oncomplete="dialogAlterar.hide()" />
+
+                </h:form>
+            </p:dialog>-->
+
+<!--            <p:confirmDialog id="Excluir"
+                             message="Você gostaria de Deletar o ?"
+                             header="Excluir" severity="alert" appendTo="@(body)" widgetVar="confirmation">
+                <h:form id="formExcluir">
+                    <p:growl id="growl" showDetail="true" life="1500"/>
+                    <p:commandButton id="confirm" value="Sim"
+                                     oncomplete="confirmation.hide()"
+                                     actionListener=""
+                                     update=":formPrincipal:tabelaLocalidade growl" />
+                    <p:commandButton id="decline" value="Não"
+                                     onclick="confirmation.hide()" type="button" />
+                </h:form>
+            </p:confirmDialog>-->
+        </ui:define>
+    </ui:decorate>
+</html>

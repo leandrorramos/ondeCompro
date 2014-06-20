@@ -52,6 +52,5 @@ public class MarcaC{
         new MarcaDAO().delete(marca);
         marcaLista = new MarcaDAO().findAll();
         marca = new Marca();
-    }
-    
+    } 
 }

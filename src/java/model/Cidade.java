@@ -1,15 +1,11 @@
 package model;
 
 import java.io.Serializable;
-import java.util.Collection;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 public class Cidade implements Serializable {
@@ -47,5 +43,4 @@ public class Cidade implements Serializable {
     public void setCidade(String cidade) {
         this.cidade = cidade;
     }
-
 }
