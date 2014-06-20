@@ -15,7 +15,7 @@ public class Database {
     private Database(){    
         Configuration cfg = new Configuration().configure();
         ServiceRegistry serviceRegistry = 
-                new ServiceRegistryBuilder().applySettings(cfg.getProperties()).build();
+                new ServiceRegistryBuilder().applySettings(cfg.getProperties()).buildServiceRegistry();
         sf = cfg.buildSessionFactory(serviceRegistry);
     }
     

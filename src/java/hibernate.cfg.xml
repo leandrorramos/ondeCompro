@@ -19,5 +19,6 @@
     <mapping class="model.Cidade"/>
     <mapping class="model.Localidade"/>    
     <mapping class="model.Usuario"/>
+    <mapping class="model.Preco"/>
   </session-factory>
 </hibernate-configuration>

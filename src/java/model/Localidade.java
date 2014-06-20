@@ -1,5 +1,6 @@
 package model;
 
+import controller.BaseEntity;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Localidade implements Serializable {
+public class Localidade implements Serializable ,BaseEntity{
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -130,6 +131,12 @@ public class Localidade implements Serializable {
         this.estado = estado;
     }*/
 
+
+    @Override
+    public Long getId() {
+        return new Long(codigoLocalidade);
+    }
+    
     public String getLatitude() {
         return latitude;
     }
