@@ -6,7 +6,9 @@
 
 package model;
 
+import DAO.PingadaDAO;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -28,6 +31,7 @@ public class Preco implements Serializable {
     private Integer codigoPreco;
     private float valor;
     private String promocao;
+    private Integer pingadas;
 
     @JoinColumn(name = "Usuarios_codigo", referencedColumnName = "codigo_usuario")
     @ManyToOne
@@ -41,7 +45,7 @@ public class Preco implements Serializable {
     @ManyToOne
     private Item item;
     
-    public Preco() {
+    public Preco() {        
     }
 
     public Preco(Integer codigoPreco) {
@@ -65,13 +69,14 @@ public class Preco implements Serializable {
     }
 
     public String getPromocao() {
-        System.out.println("Entrei aqui");
-        if (promocao.equals("1")){
-            promocao = "SIM";
-        }
-        else{
-            promocao = "NÃO";
-        }
+        /*System.out.println("Entrei aqui");
+        if(promocao != null)
+            if (promocao.equals("1")){
+                promocao = "SIM";
+            }
+            else{
+                promocao = "NÃO";
+            }*/
         return promocao;
     }
 
@@ -107,4 +112,18 @@ public class Preco implements Serializable {
     public void setItem(Item item) {
         this.item = item;
     } 
+
+    public Integer getPingadas() {
+        Integer contador = 0;
+        if(this.codigoPreco != null){
+            contador = new PingadaDAO().findCountPingada(codigoPreco);
+        }
+        setPingadas(contador);
+        return pingadas;
+    }
+
+    public void setPingadas(Integer pingadas) {        
+        this.pingadas = pingadas;
+    }
+    
 }

@@ -18,8 +18,8 @@
                     <p:column headerText="Localidade">
                         <h:outputText value="#{preco.localidade.nome}" />
                     </p:column>
-                    <p:column headerText="Preço">
-                        <h:outputText value="#{preco.item.codigoItem}" />
+                    <p:column headerText="Item">
+                        <h:outputText value="#{preco.item.produtocodigo.nome}" />
                     </p:column>
                     <p:column headerText="Promoção">
                         <h:outputText value="#{preco.promocao}" />
@@ -54,11 +54,11 @@
                     <p:panelGrid id="panelCadastrar" columns="2">
                         <h:outputText value="Localidade:" />
                         <p:selectOneMenu value="#{precoC.preco.localidade}" converter="genericConverter">
-                            <f:selectItems  value="#{localidadeC.localidadeLista}" var="l" itemLabel="#{l.descricao}" itemValue="#{l}" />
+                            <f:selectItems  value="#{localidadeC.localidadeLista}" var="l" itemLabel="#{l.nome}" itemValue="#{l}" />
                         </p:selectOneMenu>
                         <h:outputText value="Item:" />
                         <p:selectOneMenu value="#{precoC.preco.item}" converter="genericConverter">
-                            <f:selectItems  value="#{itemC.itemLista}" var="i" itemLabel="#{i.codigoItem}" itemValue="#{i}" />
+                            <f:selectItems  value="#{itemC.itemLista}" var="i" itemLabel="#{i.produtocodigo.nome}" itemValue="#{i}" />
                         </p:selectOneMenu>
                         <h:outputText value="Promoção:" />
                         <p:inputText value="#{precoC.preco.promocao}" />
@@ -80,11 +80,11 @@
                         
                         <h:outputText value="Localidade:" />
                         <p:selectOneMenu value="#{precoC.preco.localidade}" converter="genericConverter">
-                            <f:selectItems  value="#{localidadeC.localidadeLista}" var="l" itemLabel="#{l.descricao}" itemValue="#{l}" />
+                            <f:selectItems  value="#{localidadeC.localidadeLista}" var="l" itemLabel="#{l.nome}" itemValue="#{l}" />
                         </p:selectOneMenu>
                         <h:outputText value="Item:" />
                         <p:selectOneMenu value="#{precoC.preco.item}" converter="genericConverter">
-                            <f:selectItems  value="#{itemC.itemLista}" var="i" itemLabel="#{i.codigoItem}" itemValue="#{i}" />
+                            <f:selectItems  value="#{itemC.itemLista}" var="i" itemLabel="#{i.produtocodigo.nome}" itemValue="#{i}" />
                         </p:selectOneMenu>
                         <h:outputText value="Promoção:" />
                         <p:inputText value="#{precoC.preco.promocao}" />
@@ -99,7 +99,7 @@
             </p:dialog>
 
             <p:confirmDialog id="Excluir"
-                             message="Você gostaria de Deletar o #{precoC.preco.codigoPreco}?"
+                             message="Você gostaria de Deletar o #{precoC.preco.item.produtocodigo.descricao}?"
                              header="Excluir" severity="alert" appendTo="@(body)" widgetVar="confirmation">
                 <h:form id="formExcluir">
                     <p:growl id="growl" showDetail="true" life="1500"/>

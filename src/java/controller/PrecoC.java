@@ -7,12 +7,17 @@
 package controller;
 
 import DAO.PrecoDAO;
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import model.Pingada;
 import model.Preco;
+import util.Options;
 /**
  *
  * @author Diogo
@@ -24,37 +29,24 @@ public class PrecoC {
     private List<Preco> precoLista;
     
     public PrecoC(){
-            precoLista = new PrecoDAO().findAll();
-        
+        precoLista = new PrecoDAO().findAll();        
         if (preco == null) {
             preco = new Preco();
         }
     }
 
-    /**
-     * @return the preco
-     */
     public Preco getPreco() {
         return preco;
     }
 
-    /**
-     * @param preco the preco to set
-     */
     public void setPreco(Preco preco) {
         this.preco = preco;
     }
 
-    /**
-     * @return the precoLista
-     */
     public List<Preco> getPrecoLista() {
         return precoLista;
     }
 
-    /**
-     * @param precoLista the precoLista to set
-     */
     public void setPrecoLista(List<Preco> precoLista) {
         this.precoLista = precoLista;
     }
@@ -82,4 +74,27 @@ public class PrecoC {
         precoLista = new PrecoDAO().findAll();
         preco = new Preco();
     }
+    
+    public void salvarPingada(){       
+        PingadaC pingadaC = new PingadaC();        
+        try {
+            //pega instancia do usuario
+            pingadaC.getPingada().setUsuario(UsuarioLogadoC.getInstance().getUsuario());
+            pingadaC.getPingada().setPreco(this.preco);
+            pingadaC.getPingada().setData(new Date());            
+            pingadaC.salvarPingada();
+            
+        } catch (Exception ex) {
+            Logger.getLogger(LocalidadeC.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+        //precoLista = new PrecoDAO().findAll();
+        //preco = new Preco(); 
+        
+        try {  
+            FacesContext.getCurrentInstance().getExternalContext().redirect(Options.getBaseUrl()+"/");
+        } catch (IOException ex) {
+            Logger.getLogger(PrecoC.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 }

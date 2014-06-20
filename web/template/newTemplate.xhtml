@@ -30,8 +30,7 @@
                             <h:form>
                                 <p:menu style="width: 200px">
                                     <p:submenu label="Menu">
-                                        <p:menuitem value="Categorias" action="categoria" icon="ui-icon-tag"/>
-                                        <p:menuitem value="Comentario" action="comentario" icon="ui-icon-arrowthick-1-w"/> 
+                                        <p:menuitem value="Categorias" action="categoria" icon="ui-icon-tag"/>                                        
                                         <p:menuitem value="Unidades " action="unidade" icon="ui-icon-lightbulb"/>
                                         <p:menuitem value="Marcas" action="marca" icon="ui-icon-tag" />
                                         <p:menuitem value="Localidades" action="localidade" icon="ui-icon-tag" />
@@ -49,6 +48,7 @@
                 <p:layoutUnit position="center">  
                     <ui:insert name="centro">
                         <h:form id="form">
+                            <p:growl id="growl" showDetail="true" life="1500"/>
                             <p:carousel value="#{precoC.precoLista}" headerText="Feed de Preços" var="preco" itemStyleClass="precoItem" numVisible="2" easing="easeOutBounce" styleClass="carouselAdvanced">
                                 <p:panelGrid columns="2" style="width:100%" columnClasses="label,value">
                                     <h:outputText value="Item:" />
@@ -64,28 +64,31 @@
                                     
                                     <f:facet name="footer">
                                         <p:commandButton title="Visualizar" update=":visualizar"
-                                                         oncomplete="dialogVisulizar.show()" immediate="true" icon="ui-icon-search">
+                                                         oncomplete="dialogVisualizar.show()" immediate="true" icon="ui-icon-search">
                                         <f:setPropertyActionListener value="#{preco}"
                                                                      target="#{precoC.preco}" />
 
                                         </p:commandButton>
                                         <p:commandButton title="Comentar" update=":visualizar"
-                                                         oncomplete="dialogVisulizar.show()" immediate="true" icon="ui-icon-comment">
+                                                         oncomplete="dialogVisualizar.show()" immediate="true" icon="ui-icon-comment">
                                         <f:setPropertyActionListener value="#{preco}"
                                                                      target="#{precoC.preco}" />
 
                                         </p:commandButton>
-                                        <p:commandButton title="Pingar" update=":visualizar"
-                                                         oncomplete="dialogVisulizar.show()" immediate="true" icon="ui-icon-tag">
+                                        <p:commandButton title="PingarHistorico" update=":pingarHistorico"
+                                                         oncomplete="dialogPingarHistorico.show()" immediate="true" icon="ui-icon-star" value="#{preco.pingadas}">
                                         <f:setPropertyActionListener value="#{preco}"
-                                                                     target="#{precoC.preco}" />
-
+                                                                     target="#{precoC.preco}" />                                        
                                         </p:commandButton>
+                                        <p:commandButton title="Pingar" immediate="true" icon="ui-icon-star" value="Pingar" 
+                                                         action="#{precoC.salvarPingada}" >
+                                            <f:setPropertyActionListener value="#{preco}" target="#{precoC.preco}" />
+                                        </p:commandButton>                                        
                                     </f:facet>
                                 </p:panelGrid>
                             </p:carousel>
                         </h:form>
-                        <p:dialog header="Visulizar" widgetVar="dialogVisulizar" modal="true" id="visualizar" appendTo="@(body)">
+                        <p:dialog header="Visualizar" widgetVar="dialogVisualizar" modal="true" id="visualizar" appendTo="@(body)">
                                 <h:form id="formVisualizar">
                                     <p:panelGrid id="panelVisualizar" columns="2">
                                         <h:outputText value="Localidade:" />
@@ -95,6 +98,19 @@
                                         <h:outputText value="Valor:" />
                                         <h:outputText value="R$ #{precoC.preco.valor}" />
                                     </p:panelGrid>
+                                </h:form>
+                        </p:dialog>
+                        
+                        <p:dialog header="PingarHistorico" widgetVar="dialogPingarHistorico" modal="true" id="pingarHistorico" appendTo="@(body)">
+                                <h:form id="formPingarHistorico">
+                                    <p:dataTable var="pinga" value="#{pingadaC.pingadaLista}">
+                                        <p:column headerText="Data">
+                                            <h:outputText value="#{pinga.data}" />
+                                        </p:column>
+                                        <p:column headerText="Usuario">
+                                            <h:outputText value="#{pinga.usuario.nome}" />
+                                        </p:column>
+                                    </p:dataTable>
                                 </h:form>
                             </p:dialog>
                     </ui:insert>

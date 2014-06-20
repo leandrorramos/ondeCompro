@@ -93,4 +93,33 @@ public abstract class DAOGenerico <E, PK extends Serializable>{
             session.close();
         }
     }
+    //select pingada para cada preco
+    public List<E> findPingada(Integer codigoPreco){
+        List<E> list;
+        session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            Query query = (Query) session.createQuery("from Pingada where Precos_codigo = :codigoPreco"); 
+            query.setParameter("codigoPreco", codigoPreco);             
+            list = query.list();
+            return list;
+        } finally {
+            session.close();
+        }
+    }
+    
+    //select pingada para cada preco
+    public Integer findCountPingada(Integer codigoPreco){
+        List<E> list;
+        session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            Query query = (Query) session.createQuery("from Pingada where Precos_codigo = :codigoPreco"); 
+            query.setParameter("codigoPreco", codigoPreco);             
+            list = query.list();
+            Integer contador = list.size();
+            return contador;
+        } finally {
+            session.close();
+        }
+    }
+    
 }
