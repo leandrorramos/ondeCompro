@@ -79,9 +79,9 @@
                         <p:inputText value="#{localidadeC.localidade.cep}" />
 
                         <h:outputText value="Latitude"/>
-                        <p:inputText id="lat" value="#{localidadeC.localidade.latitude}" />
+                        <p:inputText id="lat" value="#{localidadeC.localidade.latitude}" onblur="handleBlurInput('mapCadastrar')" />
                         <h:outputText value="Longitude" />
-                        <p:inputText id="lng" value="#{localidadeC.localidade.longitude}" />
+                        <p:inputText id="lng" value="#{localidadeC.localidade.longitude}" onblur="handleBlurInput('mapCadastrar')" />
                         <p:commandButton value="Pegar Coordenadas" onclick="geoLocation ( 'mapCadastrar' );"/>
                         
                         <p:gmap id="gmapCadastrar" center="-15.565986,-54.309782" zoom="15" type="ROADMAP" 
@@ -119,9 +119,9 @@
                         <h:outputText value="CEP:" />
                         <p:inputText value="#{localidadeC.localidade.cep}" />
                         <h:outputText value="Latitude"/>
-                        <p:inputText id="lat" value="#{localidadeC.localidade.latitude}" />
+                        <p:inputText id="lat" value="#{localidadeC.localidade.latitude}" onblur="handleBlurInput('mapAlterar')"/>
                         <h:outputText value="Longitude" />
-                        <p:inputText id="lng" value="#{localidadeC.localidade.longitude}" />
+                        <p:inputText id="lng" value="#{localidadeC.localidade.longitude}" onblur="handleBlurInput('mapAlterar')"/>
 
                         <p:commandButton value="Pegar Coordenadas" onclick="geoLocation ( 'mapAlterar' )"/>
                         <p:gmap id="gmapAlterar" center="#{localidadeC.localidade.latitude},#{localidadeC.localidade.longitude}" 
@@ -170,6 +170,23 @@
                 position:new google.maps.LatLng(event.latLng.lat(), event.latLng.lng())
             });
 
+            PF(map).addOverlay(currentMarker[map]);
+        }
+        
+        function handleBlurInput(map) {
+            if( !(currentMarker[map]===null) )
+            {
+                currentMarker[map].setMap(null);
+            }
+
+            var lat = document.getElementById('form'+map.replace('map','')+':lat').value;
+            var lng = document.getElementById('form'+map.replace('map','')+':lng').value;
+
+            currentMarker[map] = new google.maps.Marker({
+                position:new google.maps.LatLng(lat, lng)
+            });
+
+            PF(map).map.setCenter( new google.maps.LatLng(lat, lng) );
             PF(map).addOverlay(currentMarker[map]);
         }
 
