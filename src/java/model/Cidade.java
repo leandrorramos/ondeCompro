@@ -19,9 +19,7 @@ public class Cidade implements Serializable {
     @Column(name = "id_cidade")
     private Integer idCidade;
     private String cidade;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cidadeid")
-    private Collection<Item> itemCollection;
-
+    
     public Cidade() {
     }
 
@@ -50,12 +48,4 @@ public class Cidade implements Serializable {
         this.cidade = cidade;
     }
 
-    @XmlTransient    
-    public Collection<Item> getItemCollection() {
-        return itemCollection;
-    }
-
-    public void setItemCollection(Collection<Item> itemCollection) {
-        this.itemCollection = itemCollection;
-    }
 }

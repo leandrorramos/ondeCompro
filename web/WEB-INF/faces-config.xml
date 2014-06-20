@@ -41,6 +41,11 @@
             <redirect />
         </navigation-case>
         <navigation-case>
+            <from-outcome>cidade</from-outcome>
+            <to-view-id>/cidade/index.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
             <from-outcome>logout</from-outcome>
             <to-view-id>login.xhtml</to-view-id>
             <redirect />

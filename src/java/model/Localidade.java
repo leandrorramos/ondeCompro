@@ -34,9 +34,6 @@ public class Localidade implements Serializable {
     @ManyToOne
     private Usuario usuario;
     
-    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "localidadecodigo")
-    //private Collection<Item> itemCollection;
-
     public Localidade() {
     }
 
