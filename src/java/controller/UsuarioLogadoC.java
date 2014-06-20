@@ -25,7 +25,8 @@ public class UsuarioLogadoC implements Serializable{
     private Usuario usuario;  
     private Boolean usuarioLogado;        
     private static UsuarioLogadoC instance;      
-  
+    private Options o = new Options();
+    
     @PostConstruct  
     public void inicializa()  
     {  
@@ -53,9 +54,10 @@ public class UsuarioLogadoC implements Serializable{
       
     public void logout() throws IOException  
     {  
+        Options o = new Options();
         this.usuario = null;
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();  
-        FacesContext.getCurrentInstance().getExternalContext().redirect(Options.getBaseUrl()+"/login.xhtml");  
+        FacesContext.getCurrentInstance().getExternalContext().redirect(o.getBaseUrl()+"/login.xhtml");  
         this.inicializa();
     }  
     
@@ -77,7 +79,7 @@ public class UsuarioLogadoC implements Serializable{
                 usuario = u.get(0);  
                 
                 //redirecionar usuario logado
-                FacesContext.getCurrentInstance().getExternalContext().redirect(Options.getBaseUrl());  
+                FacesContext.getCurrentInstance().getExternalContext().redirect(o.getBaseUrl());  
             }  
               
         } catch (Exception e) {  
@@ -93,7 +95,7 @@ public class UsuarioLogadoC implements Serializable{
             return usuario.getNome();
         }  
           
-        FacesContext.getCurrentInstance().getExternalContext().redirect(Options.getBaseUrl()+"/login.xhtml");  
+        FacesContext.getCurrentInstance().getExternalContext().redirect(o.getBaseUrl()+"/login.xhtml");  
         return "";  
     }  
       
