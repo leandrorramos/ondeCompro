@@ -28,7 +28,6 @@ public class Usuario implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date data;
     private String ativo;
-    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioscodigo")
     private Collection<Item> itemCollection;
 
@@ -111,5 +110,5 @@ public class Usuario implements Serializable {
 
     public void setItemCollection(Collection<Item> itemCollection) {
         this.itemCollection = itemCollection;
-    }   
+    }
 }

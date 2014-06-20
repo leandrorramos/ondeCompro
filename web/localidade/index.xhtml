@@ -37,7 +37,6 @@
                     <p:column headerText="Usuario">
                         <h:outputText value="#{localidade.usuario.nome}" />
                     </p:column>
-
                     <p:column headerText="Ações" style="width: 40%; text-align: center">                     
                         <p:commandButton title="Alterar" update=":Alterar"
                                          oncomplete="dialogAlterar.show()" immediate="true" value="Alterar">
@@ -65,8 +64,7 @@
                         <h:outputText value="Localidade:" />
                         <p:inputText value="#{localidadeC.localidade.nome}" />
                         <h:outputText value="Descricao:" />
-                        <p:inputText value="#{localidadeC.localidade.descricao}" />
-                        
+                        <p:inputText value="#{localidadeC.localidade.descricao}" />                        
                         <h:outputText value="logradouro:" />
                         <p:inputText value="#{localidadeC.localidade.logradouro}" />
                         <h:outputText value="numero:" />
@@ -79,10 +77,15 @@
                         </p:selectOneMenu>                        
                         <h:outputText value="CEP:" />
                         <p:inputText value="#{localidadeC.localidade.cep}" />
-                        <h:outputText value="Longitude:" />
-                        <p:inputText value="#{localidadeC.localidade.longitude}" />
-                        <h:outputText value="Latitude:" />
-                        <p:inputText value="#{localidadeC.localidade.latitude}" />
+
+                        <h:outputText value="Latitude"/>
+                        <p:inputText id="lat" value="#{localidadeC.localidade.latitude}" />
+                        <h:outputText value="Longitude" />
+                        <p:inputText id="lng" value="#{localidadeC.localidade.longitude}" />
+                        <p:commandButton value="Pegar Coordenadas" onclick="geoLocation ( map )"/>
+                        
+                        <p:gmap id="gmap" center="-15.565986,-54.309782" zoom="15" type="ROADMAP" style="width:500px;height:300px" onPointClick="handlePointClick(event);" widgetVar="map"/>
+
                     </p:panelGrid>
                     <p:commandButton value="Cadastrar"
                                      actionListener="#{localidadeC.salvarLocalidade}"
@@ -141,4 +144,71 @@
             </p:confirmDialog>
         </ui:define>
     </ui:decorate>
+    <script type="text/javascript">
+        var userLocationLoaded = false;
+        var userLocation = null; 
+
+        var currentMarker = null;
+        
+        function handlePointClick(event) {
+            
+            if( currentMarker!==null )
+            {
+                currentMarker.setMap(null);
+            }
+
+            document.getElementById('formCadastrar:lat').value = event.latLng.lat();
+            document.getElementById('formCadastrar:lng').value = event.latLng.lng();
+
+            currentMarker = new google.maps.Marker({
+                position:new google.maps.LatLng(event.latLng.lat(), event.latLng.lng())
+            });
+
+            PF('map').addOverlay(currentMarker);
+        }
+
+        function markerAddComplete() {
+            var title = document.getElementById('title');
+            currentMarker.setTitle(title.value);
+            title.value = "";
+
+            currentMarker = null;
+            PF('dlg').hide();
+        }
+        
+        browserSupportFlag = false;
+        // Get location user
+        function geoLocation ( map, callback ) {
+            // Once browser support is confirmed, check only the confirmation
+            if( browserSupportFlag || navigator.geolocation ) {
+                browserSupportFlag = true;
+                // If the user is not loaded yet
+                if( !userLocationLoaded ){
+                    navigator.geolocation.getCurrentPosition( function(position) {
+                        var coords = [ position.coords.latitude,position.coords.longitude ];
+
+                        currentMarker.setMap(null);
+                        userLocation = new google.maps.LatLng( coords[0], coords[1] );
+                        PF('map').map.setCenter( userLocation );
+
+                        currentMarker =  new google.maps.Marker({
+                            position: userLocation
+                        });
+
+                        // setMarker( map, coords[0]+0.22578, coords[1]+0.22578 , 'Your Location' ,'pin-me');
+                        userLocationLoaded = true;
+
+                        PF('map').addOverlay(currentMarker);
+                    });
+                }
+            }
+            // Browser doesn't support Geolocation
+            else {
+                browserSupportFlag = false;
+                // Show erro
+                if( callback )
+                    handleNoGeolocation( browserSupportFlag );
+            }
+        } 
+    </script>
 </html>
