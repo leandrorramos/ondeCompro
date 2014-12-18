@@ -85,4 +85,13 @@ public class Produto implements Serializable ,BaseEntity{
     public Long getId() {
         return new Long(codigoProduto);
     }
+    
+    @Override
+    public int hashCode() { return getDescricao().length() * 8; }
+
+    @Override
+    public boolean equals(Object obj) {
+    
+        return (obj instanceof Produto) && ((Produto) obj).getCodigoProduto().equals(this.getCodigoProduto());
+    }
 }
