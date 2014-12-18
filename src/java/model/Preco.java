@@ -7,6 +7,7 @@
 package model;
 
 import DAO.PingadaDAO;
+import controller.BaseEntity;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -22,7 +23,7 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-public class Preco implements Serializable {
+public class Preco implements Serializable ,BaseEntity{
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -124,6 +125,11 @@ public class Preco implements Serializable {
 
     public void setPingadas(Integer pingadas) {        
         this.pingadas = pingadas;
+    }
+
+    @Override
+    public Long getId() {
+        return new Long(codigoPreco);
     }
     
 }
